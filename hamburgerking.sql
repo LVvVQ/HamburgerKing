@@ -1,3 +1,4 @@
+create database hamburgerking;
 use hamburgerking;
 
 create table users (
@@ -20,7 +21,8 @@ create table goods (
     gname varchar(50),
     price decimal(10,2),
     image varchar(255),
-    stock int
+    stock int,
+    description varchar(255)
 );
 
 create table orders (
