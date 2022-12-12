@@ -1,60 +1,27 @@
 package com.hamburgerking.util;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.Properties;
 
 public class JDBCUtils {
-    private static String username;
-    private static String password;
-    private static String url;
-    private static String driver;
+    private static DataSource ds;
 
     static {
         try {
             Properties pro = new Properties();
-
-            ClassLoader classLoader = JDBCUtils.class.getClassLoader();
-            URL resource = classLoader.getResource("jdbc.properties");
-            String path = resource.getPath();
-            pro.load(new FileReader(path));
-
-            username = pro.getProperty("username");
-            password = pro.getProperty("password");
-            url = pro.getProperty("url");
-            driver = pro.getProperty("driver");
-
-            Class.forName(driver);
-        } catch (IOException | ClassNotFoundException e) {
+            pro.load(JDBCUtils.class.getClassLoader().getResourceAsStream("druid.properties"));
+            ds = DruidDataSourceFactory.createDataSource(pro);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static Connection getConnection() throws SQLException {
-
-        return DriverManager.getConnection(url, username, password);
+        return ds.getConnection();
     }
-
-    public static void close(Statement stmt, Connection conn) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     public static void close(ResultSet rs, Statement stmt, Connection conn) {
         if (rs != null) {
@@ -81,4 +48,9 @@ public class JDBCUtils {
             }
         }
     }
+
+    public static void close(Statement stmt, Connection conn) {
+        close(null, stmt, conn);
+    }
+
 }
