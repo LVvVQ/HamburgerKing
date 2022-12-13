@@ -10,4 +10,8 @@ public interface GoodsService {
      * @return 包含所有商品的集合
      */
     public ArrayList<Good> findAllGoods();
+
+    public boolean deleteGoods(String gids);
+
+    public ArrayList<Good> searchGood(String keyWord);
 }

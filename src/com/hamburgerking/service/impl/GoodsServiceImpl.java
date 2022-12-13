@@ -18,4 +18,14 @@ public class GoodsServiceImpl implements GoodsService {
     public ArrayList<Good> findAllGoods() {
         return goodsDao.findAllGoods();
     }
+
+    @Override
+    public boolean deleteGoods(String gids) {
+        return goodsDao.deleteGoods(gids);
+    }
+
+    @Override
+    public ArrayList<Good> searchGood(String keyWord) {
+        return goodsDao.searchGood(keyWord);
+    }
 }

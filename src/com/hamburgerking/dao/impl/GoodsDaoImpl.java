@@ -4,15 +4,13 @@ import com.hamburgerking.bean.Good;
 import com.hamburgerking.dao.GoodsDao;
 import com.hamburgerking.util.JDBCUtils;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class GoodsDaoImpl implements GoodsDao {
     Connection conn = null;
     Statement stmt = null;
+    PreparedStatement pstmt = null;
     ResultSet rs = null;
     ArrayList<Good> goods = new ArrayList<>();
     Good good;
@@ -46,6 +44,51 @@ public class GoodsDaoImpl implements GoodsDao {
         } finally {
             JDBCUtils.close(rs, stmt, conn);
         }
+        return goods;
+    }
+
+    @Override
+    public boolean deleteGoods(String gids) {
+        try{
+            conn = JDBCUtils.getConnection();
+            String sql = "delete from goods where gid in (" + gids + ")";
+            stmt = conn.createStatement();
+            if(stmt.executeUpdate(sql) > 0)
+                return true;
+        }catch (SQLException e){
+            System.out.println("deleteGoods发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(stmt,conn);
+        }
+        return false;
+    }
+
+    @Override
+    public ArrayList<Good> searchGood(String keyWord) {
+        try{
+            String sql = "select * from goods where gname like ?";
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + keyWord + "%");
+            rs = pstmt.executeQuery();
+            goods.clear();
+
+            while (rs.next()){
+                good = new Good();
+                good.setGid(rs.getInt("gid"));
+                good.setGname(rs.getString("gname"));
+                good.setPrice(rs.getDouble("price"));
+                good.setImage(rs.getString("image"));
+                good.setStock(rs.getInt("stock"));
+                good.setDescription(rs.getString("description"));
+                goods.add(good);
+            }
+        }catch (SQLException e){
+            System.out.println("searchGood发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(pstmt,conn);
+        }
+
         return goods;
     }
 }
