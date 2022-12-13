@@ -22,15 +22,12 @@ public class SearchGoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         GoodsService service = new GoodsServiceImpl();
-        ArrayList<Good> goods = new ArrayList<>();
         String keyWord = req.getParameter("searchGoodName");
-//        System.out.println(keyWord);
-//        if(keyWord == null){
-//            goods = service.findAllGoods();
-//        }else {
-//            goods = service.searchGood(keyWord);
-//        }
-        goods = service.searchGood(keyWord);
+        if (keyWord == null) {
+            keyWord = "";
+        }
+
+        ArrayList<Good> goods = service.searchGood(keyWord);
         req.setAttribute("goods",goods);
         req.getRequestDispatcher("admin.jsp").forward(req,resp);
     }

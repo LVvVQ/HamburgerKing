@@ -39,7 +39,7 @@ public class DeleteGoodsServlet extends HttpServlet {
         }
 
         req.setAttribute("msg",msg);
-        req.getRequestDispatcher("findAllGoodsServlet").forward(req,resp);
+        req.getRequestDispatcher("searchGoodServlet").forward(req,resp);
     }
 
     @Override

@@ -130,7 +130,6 @@
                                 <td>${good.description}</td>
                                 <td>
                                     <input type="submit" class="btn btn-sm btn-primary"  value="编辑">
-                                    <input type="submit" class="btn btn-sm btn-danger"  formaction="deleteGoodsServlet" value="删除">
                                 </td>
                             </tr>
                         </c:forEach>
