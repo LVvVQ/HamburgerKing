@@ -1,3 +1,6 @@
+<%@ page import="com.hamburgerking.service.impl.GoodsServiceImpl" %>
+<%@ page import="com.hamburgerking.bean.Good" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -30,7 +33,52 @@
 
     <!-- Template Stylesheet -->
     <link href="admin/css/style.css" rel="stylesheet">
+    <script type ="text/javascript">
+        function selectAll()
+        {
+            var goodIDs = document.getElementsByName("goodId");
+            for (i=0;i<goodIDs.length ;i++ )
+            {
+                var goodID =goodIDs[i];
+                goodID.checked= true;
+
+            }
+        }
+        function selectNone()
+        {
+            var goodIDs = document.getElementsByName("goodId");
+            for (i=0;i<goodIDs.length ;i++ )
+            {
+                var goodID =goodIDs[i];
+                goodID.checked= false;
+
+            }
+        }
+        function selectBack()
+        {
+            var goodIDs = document.getElementsByName("goodId");
+            for (a=0;a<goodIDs.length ;a++ )
+            {
+                var goodID =goodIDs[a];
+                if(goodID.checked==false)
+                {
+                    goodID.checked= true;
+                }else{
+                    goodID.checked=false
+                }
+
+            }
+        }
+    </script>
 </head>
+
+
+<%
+    ArrayList<Good> allGoods = (ArrayList<Good>) request.getAttribute("goods");
+    request.setCharacterEncoding("UTF-8");
+    request.setAttribute("allGoods",allGoods);
+
+%>
 
 <body>
 <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -41,43 +89,51 @@
         <jsp:include page="navbar.jsp" />
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded p-4">
+            <div class="bg-light rounded p-4">
                 <div class="d-flex align-items-center mb-4">
                     <h6 class="mb-0">商品列表</h6>
-                    <form class="d-none d-md-flex ms-4">
-                        <input class="form-control border-0" type="search" placeholder="输入商品名查询">
+                    <form class="d-none d-md-flex ms-4" method="post" action="searchCommentServlet">
+                        <input class="form-control border-0" type="search" placeholder="输入商品名查询" name="searchGoodName">
+                        <input type="submit" class="btn btn-sm btn-primary" value="查询">
                     </form>
                 </div>
                 <div class="table-responsive">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0">
-                        <thead>
-                        <tr class="text-dark">
-                            <th scope="col">全选  <input class="form-check-input" type="checkbox"></th>
-                            <th scope="col">名称</th>
-                            <th scope="col">价格</th>
-                            <th scope="col">图片</th>
-                            <th scope="col">库存量</th>
-                            <th scope="col">描述</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td style="text-align: center"><input class="form-check-input" type="checkbox"></td>
-                            <td>CRISPY CHICKEN</td>
-                            <td>8.5</td>
-                            <td>
-                                <img src="static/picture/burger-11.jpg" alt="商品图" width="80px" height="70px">
-                            </td>
-                            <td>123</td>
-                            <td>Chicken breast, chilli sauce, tomatoes, pickles, coleslaw</td>
-                            <td>
-                                <a class="btn btn-sm btn-primary" href="viewComment.jsp">查看商品评论</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <form method="post" action="">
+                        <table class="table text-start table-bordered table-hover mb-0">
+                            <thead>
+                            <tr class="text-dark">
+                                <th scope="col">名称</th>
+                                <th scope="col">价格</th>
+                                <th scope="col">图片</th>
+                                <th scope="col">库存量</th>
+                                <th scope="col">描述</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <c:forEach items="${allGoods}" var="good">
+                                <tr>
+
+                                    <td>${good.gname}</td>
+                                    <td>${good.price}</td>
+                                    <td>
+                                        <img src="${good.image}" alt="商品图" width="80px" height="70px">
+                                    </td>
+                                    <td>${good.stock}</td>
+                                    <td>${good.description}</td>
+                                    <td>
+                                        <input type="submit" class="btn btn-sm btn-primary" formaction="findOneCommentServlet?gid=${good.gid}"  value="查看商品评论">
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <br>
+                    </form>
                 </div>
+
             </div>
         </div>
         <!-- Recent Sales End -->

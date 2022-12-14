@@ -54,56 +54,22 @@
                             <th scope="col">全选  <input class="form-check-input" type="checkbox"></th>
                             <th scope="col">客户名</th>
                             <th scope="col">评论时间</th>
-                            <th scope="col">内容</th>
+                            <th scope="col">评论内容</th>
                             <th scope="col">操作</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <c:forEach items="${comments}" var="comment">
                         <tr>
                             <td style="text-align: center"><input class="form-check-input" type="checkbox"></td>
-                            <td>luke</td>
-                            <td>2020-12-12</td>
-                            <td>内容</td>
+                            <td>${comment.username}${comment.managername}</td>
+                            <td>${comment.date}</td>
+                            <td>${comment.content}</td>
                             <td>
                                 <a class="btn btn-sm btn-danger" href="">删除</a>
                             </td>
                         </tr>
-                        <tr>
-                            <td style="text-align: center"><input class="form-check-input" type="checkbox"></td>
-                            <td>luke</td>
-                            <td>2020-12-12</td>
-                            <td>内容</td>
-                            <td>
-                                <a class="btn btn-sm btn-danger" href="">删除</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center"><input class="form-check-input" type="checkbox"></td>
-                            <td>luke</td>
-                            <td>2020-12-12</td>
-                            <td>内容</td>
-                            <td>
-                                <a class="btn btn-sm btn-danger" href="">删除</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center"><input class="form-check-input" type="checkbox"></td>
-                            <td>luke</td>
-                            <td>2020-12-12</td>
-                            <td>内容</td>
-                            <td>
-                                <a class="btn btn-sm btn-danger" href="">删除</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center"><input class="form-check-input" type="checkbox"></td>
-                            <td>luke</td>
-                            <td>2020-12-12</td>
-                            <td>内容</td>
-                            <td>
-                                <a class="btn btn-sm btn-danger" href="">删除</a>
-                            </td>
-                        </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

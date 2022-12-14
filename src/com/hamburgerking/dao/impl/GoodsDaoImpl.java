@@ -23,6 +23,7 @@ public class GoodsDaoImpl implements GoodsDao {
     public ArrayList<Good> findAllGoods() {
         try {
             conn = JDBCUtils.getConnection();
+
             String sql = "select * from goods";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);

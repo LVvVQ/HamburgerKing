@@ -36,7 +36,7 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>评论管理</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="commentManager.jsp" class="dropdown-item">评论列表</a>
+                    <a href="allGoodsSeeCommentServlet" class="dropdown-item">评论列表</a>
                     <a href="addComment.jsp" class="dropdown-item">添加评论</a>
                 </div>
             </div>
