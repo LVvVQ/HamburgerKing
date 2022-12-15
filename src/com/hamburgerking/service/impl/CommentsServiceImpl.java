@@ -32,4 +32,12 @@ public class CommentsServiceImpl implements CommentsService {
         }
     }
 
+    /**
+     * 删除商品的同时删除所有评论
+     * @param gid 商品号
+     * @return 是否删除成功
+     */
+    public boolean deleteGoodOfComments(String gid){
+        return commentsDAO.deleteGoodOfComments(Integer.parseInt(gid));
+    }
 }

@@ -87,6 +87,27 @@ public class CommentsDAOImpl implements CommentsDAO {
         return false;
     }
 
+    /**
+     * 删除商品的同时删除所有评论
+     * @param gid 商品号
+     * @return 是否删除成功
+     */
+    public boolean deleteGoodOfComments(int gid){
+        try{
+            conn = JDBCUtils.getConnection();
+            String sql = "delete from comments where gid = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,gid);
+            if(pstmt.executeUpdate() > 0)
+                return true;
+        }catch (SQLException e){
+            System.out.println("deleteComments发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(stmt,conn);
+        }
+        return false;
+    }
+
     //显示用户评论
     public ArrayList<Comment> findOneGoodComment(int gid) {//显示用户评论
         sql="SELECT cid,users.uid,gid,users.username, date,content,avatar from comments , users " +
