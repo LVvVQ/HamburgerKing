@@ -32,7 +32,7 @@
                     <a href="addGoods.jsp" class="dropdown-item">添加商品</a>
                 </div>
             </div>
-            <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>订单管理</a>
+            <a href="findOrderByPageServlet?currentPage=1&rows=5" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>订单管理</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>评论管理</a>
                 <div class="dropdown-menu bg-transparent border-0">

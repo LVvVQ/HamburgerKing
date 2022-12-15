@@ -103,9 +103,6 @@
                         <thead>
                         <tr class="text-dark">
                             <th>
-                                <input type="button" name = "all" value = "全选"    onclick="selectAll()" class="btn btn-sm btn-primary"/>
-                                <input type="button" name = "none" value = "全不选" onclick="selectNone()" class="btn btn-sm btn-primary"/>
-                                <input type="button" name = "back" value = "反选"   onclick="selectBack()" class="btn btn-sm btn-primary"/>
                             </th>
                             <th scope="col">名称</th>
                             <th scope="col">价格</th>
@@ -136,6 +133,9 @@
                         </tbody>
                     </table>
                         <br>
+                        <input type="button" name = "all" value = "全选"    onclick="selectAll()" class="btn btn-sm btn-primary"/>
+                        <input type="button" name = "none" value = "全不选" onclick="selectNone()" class="btn btn-sm btn-primary"/>
+                        <input type="button" name = "back" value = "反选"   onclick="selectBack()" class="btn btn-sm btn-primary"/>
                         <input type="submit" class="btn btn-sm btn-danger"  formaction="deleteGoodsServlet" value="删除">
                     </form>
                 </div>
