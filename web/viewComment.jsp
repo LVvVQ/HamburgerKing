@@ -30,6 +30,81 @@
 
     <!-- Template Stylesheet -->
     <link href="admin/css/style.css" rel="stylesheet">
+    <%--批量选择功能--%>
+    <script type ="text/javascript">
+        // 全选功能
+        function selectAll()
+        {
+            var coomentIDs = document.getElementsByName("commentId");
+            for (i=0;i<coomentIDs.length ;i++ )
+            {
+                var coomentID =coomentIDs[i];
+                coomentID.checked= true;
+
+            }
+        }
+        /*全不选功能*/
+        function selectNone()
+        {
+            var coomentIDs = document.getElementsByName("commentId");
+            for (i=0;i<coomentIDs.length ;i++ )
+            {
+                var coomentID =coomentIDs[i];
+                coomentID.checked= false;
+
+            }
+        }
+        // 反选功能
+        function selectBack()
+        {
+            var coomentsIDs = document.getElementsByName("commentId");
+            for (a=0;a<coomentsIDs.length ;a++ )
+            {
+                var coomentsID =coomentsIDs[a];
+                if(coomentsID.checked==false)
+                {
+                    coomentsID.checked= true;
+                }else{
+                    coomentsID.checked=false
+                }
+
+            }
+        }
+    </script>
+    <%--删除功能--%>
+    <script type="text/javascript">
+        function deleteComment(cid){
+            //用户安全提示
+            if(confirm("您确认删除吗？")){
+                //访问路径
+                location.href="DeleteOneCommentServlet?cid=" + cid;
+            }
+        }
+
+        //页面加载完在获取按钮
+        window.onload = function (){
+            //给删除选中添加单机事件
+            document.getElementById("delSearch").onclick = function (){
+                if(confirm("您确认删除吗？")){ //如果没有选中就提交表单 会报空指针异常
+                    //如果没有选中就不提交表单 , 判断是否有选中
+                    var flag = false;
+                    var cbs = document.getElementsByName("goodId");
+                    for(var i = 0; i < cbs.length; i++){
+                        if(cbs[i].checked){
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if(flag){
+                        //提交表单
+                        document.getElementById("form").submit();
+                    }
+
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -47,31 +122,38 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <img class="rounded-circle" src="static/picture/burger-11.jpg" style="width: 50px; height: 50px;">
                 </div>
-                <div class="table-responsive">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0">
-                        <thead>
-                        <tr class="text-dark">
-                            <th scope="col">全选  <input class="form-check-input" type="checkbox"></th>
-                            <th scope="col">客户名</th>
-                            <th scope="col">评论时间</th>
-                            <th scope="col">评论内容</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${comments}" var="comment">
-                        <tr>
-                            <td style="text-align: center"><input class="form-check-input" type="checkbox"></td>
-                            <td>${comment.username}${comment.managername}</td>
-                            <td>${comment.date}</td>
-                            <td>${comment.content}</td>
-                            <td>
-                                <a class="btn btn-sm btn-danger" href="">删除</a>
-                            </td>
-                        </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                <div class="table-responsive"><%--新增表单--%>
+                    <form method="post" action="">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                            <tr class="text-dark">
+                                <th scope="col"></th>
+                                <th scope="col">客户名</th>
+                                <th scope="col">评论时间</th>
+                                <th scope="col">评论内容</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${comments}" var="comment">
+                            <tr>
+                                <%--全选--%>
+                                <td style="text-align: center"><input class="form-check-input" type="checkbox" name="commentId" value="${comment.cid}"></td>
+                                <td>${comment.username}${comment.managername}</td>
+                                <td>${comment.date}</td>
+                                <td>${comment.content}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-danger" href="javascript:deleteComment(${comment.cid})">删除</a>
+                                </td>
+                            </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <input type="button" name = "all" value = "全选"    onclick="selectAll()" class="btn btn-sm btn-primary"/>
+                        <input type="button" name = "none" value = "全不选" onclick="selectNone()" class="btn btn-sm btn-primary"/>
+                        <input type="button" name = "back" value = "反选"   onclick="selectBack()" class="btn btn-sm btn-primary"/>
+                        <a  class="btn btn-sm btn-danger"  href="javascript:void(0)" id="delSearch" >删除选中</a>
+                    </form>
                 </div>
             </div>
         </div>

@@ -6,4 +6,7 @@ import java.util.ArrayList;
 
 public interface CommentsService {
     public ArrayList<Comment> findOneGoodComment(int gid);
+    public void deleteComments(String[] cid);
+    public boolean deleteComment(String cid);
+    public boolean deleteGoodOfComments(String gid);
 }
