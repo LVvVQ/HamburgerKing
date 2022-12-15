@@ -48,13 +48,19 @@ public class GoodsDaoImpl implements GoodsDao {
         return goods;
     }
 
+    /**
+     * 删除商品
+     * @param gid
+     * @return
+     */
     @Override
-    public boolean deleteGoods(String gids) {
+    public boolean deleteGoods(int gid) {
         try{
             conn = JDBCUtils.getConnection();
-            String sql = "delete from goods where gid in (" + gids + ")";
-            stmt = conn.createStatement();
-            if(stmt.executeUpdate(sql) > 0)
+            String sql = "delete from goods where gid = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,gid);
+            if(pstmt.executeUpdate() > 0)
                 return true;
         }catch (SQLException e){
             System.out.println("deleteGoods发生错误，错误原因: " + e.getMessage());

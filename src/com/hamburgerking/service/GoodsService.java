@@ -11,7 +11,19 @@ public interface GoodsService {
      */
     public ArrayList<Good> findAllGoods();
 
+    /**
+     * 删除商品
+     * @param gids
+     * @return
+     */
     public boolean deleteGoods(String gids);
 
     public ArrayList<Good> searchGood(String keyWord);
+
+    /**
+     * 批量删除商品
+     * @param gids
+     * @return
+     */
+    public void deleteSearchGoods(String[] gids);
 }

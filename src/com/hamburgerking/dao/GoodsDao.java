@@ -12,7 +12,12 @@ public interface GoodsDao {
      */
     public ArrayList<Good> findAllGoods();
 
-    public boolean deleteGoods(String gids);
+    /**
+     * 删除商品
+     * @param gid
+     * @return
+     */
+    public boolean deleteGoods(int gid);
 
     public ArrayList<Good> searchGood(String keyWord);
 }

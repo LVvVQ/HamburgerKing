@@ -10,24 +10,23 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/deleteGoodsServlet")
-public class DeleteGoodsServlet extends HttpServlet {
+@WebServlet("/DeleteOneGoodsServlet")
+public class DeleteOneGoodsServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        //获取选中的gid
-        String[] goodIds = req.getParameterValues("goodId");//获取传入的goodId值
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取gid
+        String id = req.getParameter("gid");
 
         //调用service删除
         GoodsService service = new GoodsServiceImpl();
-        service.deleteSearchGoods(goodIds);
+        service.deleteGoods(id);
 
         //跳转至searchGoodServlet查询所有商品
         req.getRequestDispatcher("searchGoodServlet").forward(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doPost(req,resp);
     }
 }

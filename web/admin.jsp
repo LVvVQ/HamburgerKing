@@ -70,6 +70,40 @@
             }
         }
     </script>
+
+    <script type="text/javascript">
+        function deleteGood(gid){
+            //用户安全提示
+            if(confirm("您确认删除吗？")){
+                //访问路径
+                location.href="DeleteOneGoodsServlet?gid=" + gid;
+            }
+        }
+
+        //页面加载完在获取按钮
+        window.onload = function (){
+            //给删除选中添加单机事件
+            document.getElementById("delSearch").onclick = function (){
+                if(confirm("您确认删除吗？")){ //如果没有选中就提交表单 会报空指针异常
+                    //如果没有选中就不提交表单 , 判断是否有选中
+                    var flag = false;
+                    var cbs = document.getElementsByName("goodId");
+                    for(var i = 0; i < cbs.length; i++){
+                        if(cbs[i].checked){
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if(flag){
+                        //提交表单
+                        document.getElementById("form").submit();
+                    }
+
+                }
+            }
+        }
+    </script>
 </head>
 
 
@@ -98,7 +132,7 @@
                     </form>
                 </div>
                 <div class="table-responsive">
-                    <form method="post" action="">
+                    <form method="post" action="deleteGoodsServlet" id="form">
                     <table class="table text-start table-bordered table-hover mb-0">
                         <thead>
                         <tr class="text-dark">
@@ -126,7 +160,9 @@
                                 <td>${good.stock}</td>
                                 <td>${good.description}</td>
                                 <td>
-                                    <input type="submit" class="btn btn-sm btn-primary"  value="编辑">
+                                    <input type="submit" class="btn btn-sm btn-primary"  value="编辑">&nbsp;
+                                    <!-- 防止误点 通过javascript才确认删除 -->
+                                    <a class="btn btn-sm btn-danger" href="javascript:deleteGood(${good.gid})">删除</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -136,7 +172,7 @@
                         <input type="button" name = "all" value = "全选"    onclick="selectAll()" class="btn btn-sm btn-primary"/>
                         <input type="button" name = "none" value = "全不选" onclick="selectNone()" class="btn btn-sm btn-primary"/>
                         <input type="button" name = "back" value = "反选"   onclick="selectBack()" class="btn btn-sm btn-primary"/>
-                        <input type="submit" class="btn btn-sm btn-danger"  formaction="deleteGoodsServlet" value="删除">
+                        <a  class="btn btn-sm btn-danger"  href="javascript:void(0)" id="delSearch" >删除选中</a>
                     </form>
                 </div>
             </div>

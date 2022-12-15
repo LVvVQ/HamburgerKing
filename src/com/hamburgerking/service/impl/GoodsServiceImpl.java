@@ -19,13 +19,35 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDao.findAllGoods();
     }
 
+    /**
+     * 删除商品
+     * @param gid
+     * @return
+     */
     @Override
-    public boolean deleteGoods(String gids) {
-        return goodsDao.deleteGoods(gids);
+    public boolean deleteGoods(String gid) {
+        return goodsDao.deleteGoods(Integer.parseInt(gid));
     }
+
 
     @Override
     public ArrayList<Good> searchGood(String keyWord) {
         return goodsDao.searchGood(keyWord);
+    }
+
+    /**
+     * 批量删除商品
+     * @param gids
+     * @return
+     */
+    @Override
+    public void deleteSearchGoods(String[] gids) {
+        //设置返回值
+        boolean flag = false;
+        //遍历数组
+        for(String gid : gids){
+            //调用删除单个商品
+            goodsDao.deleteGoods(Integer.parseInt(gid));
+        }
     }
 }
