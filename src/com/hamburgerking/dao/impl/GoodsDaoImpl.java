@@ -125,4 +125,63 @@ public class GoodsDaoImpl implements GoodsDao {
         }
         return false;
     }
+
+    /**
+     * 根据gid查找商品
+     * @param gid
+     * @return
+     */
+    @Override
+    public Good searchGoodsById(int gid) {
+        String sql = "select * from goods where gid = ?";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,gid);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                Good good = new Good();
+                good.setGid(rs.getInt("gid"));
+                good.setGname(rs.getString("gname"));
+                good.setPrice(rs.getDouble("price"));
+                good.setImage(rs.getString("image"));
+                good.setStock(rs.getInt("stock"));
+                good.setDescription(rs.getString("description"));
+                return good;
+            }
+        }catch (SQLException e){
+            System.out.println("searchGoodsById发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(rs,pstmt,conn);
+        }
+        return null;
+    }
+
+    /**
+     * 修改商品
+     * @param good
+     * @return
+     */
+    @Override
+    public boolean updateGoods(Good good) {
+       String sql = "update goods set gname = ?, price = ?, image = ?, stock = ?, description = ? where gid = ?";
+       try{
+           conn = JDBCUtils.getConnection();
+           pstmt = conn.prepareStatement(sql);
+           pstmt.setString(1,good.getGname());
+           pstmt.setDouble(2,good.getPrice());
+           pstmt.setString(3, good.getImage());
+           pstmt.setInt(4,good.getStock());
+           pstmt.setString(5, good.getDescription());
+           pstmt.setInt(6,good.getGid());
+           if(pstmt.executeUpdate() > 0){
+               return true;
+           }
+       }catch (SQLException e){
+           System.out.println("updateGoods发生错误，错误原因: " + e.getMessage());
+       }finally {
+           JDBCUtils.close(pstmt,conn);
+       }
+       return false;
+    }
 }

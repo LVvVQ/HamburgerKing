@@ -160,7 +160,7 @@
                                 <td>${good.stock}</td>
                                 <td>${good.description}</td>
                                 <td>
-                                    <input type="submit" class="btn btn-sm btn-primary"  value="编辑">&nbsp;
+                                    <a class="btn btn-sm btn-primary"  href="FindGoodsByIdServlet?gid=${good.gid}">编辑</a>
                                     <!-- 防止误点 通过javascript才确认删除 -->
                                     <a class="btn btn-sm btn-danger" href="javascript:deleteGood(${good.gid})">删除</a>
                                 </td>
@@ -188,7 +188,8 @@
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="admin/lib/chart/chart.min.js"></script>
+<script src="
+lib/chart/chart.min.js"></script>
 <script src="admin/lib/easing/easing.min.js"></script>
 <script src="admin/lib/waypoints/waypoints.min.js"></script>
 <script src="admin/lib/owlcarousel/owl.carousel.min.js"></script>

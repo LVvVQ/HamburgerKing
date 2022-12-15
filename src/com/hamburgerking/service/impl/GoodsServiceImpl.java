@@ -29,13 +29,9 @@ public class GoodsServiceImpl implements GoodsService {
      * @return
      */
     @Override
-    public boolean deleteGoods(String gid) {
-        if(commentsService.deleteGoodOfComments(gid)){
-            return goodsDao.deleteGoods(Integer.parseInt(gid));
-        }else{
-            return false;
-        }
-
+    public void deleteGoods(String gid) {
+        commentsService.deleteGoodOfComments(gid);
+        goodsDao.deleteGoods(Integer.parseInt(gid));
     }
 
 
@@ -53,10 +49,9 @@ public class GoodsServiceImpl implements GoodsService {
     public void deleteSearchGoods(String[] gids) {
         //遍历数组
         for(String gid : gids){
-            if(commentsService.deleteGoodOfComments(gid)){
-                //调用删除单个商品
-                goodsDao.deleteGoods(Integer.parseInt(gid));
-            }
+            commentsService.deleteGoodOfComments(gid);
+            //调用删除单个商品
+            goodsDao.deleteGoods(Integer.parseInt(gid));
         }
     }
 
@@ -67,5 +62,25 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public boolean insertGood(Good good) {
         return goodsDao.insertGood(good);
+    }
+
+    /**
+     * 根据gid查找商品
+     * @param gid
+     * @return
+     */
+    @Override
+    public Good searchGoodsById(String gid) {
+        return goodsDao.searchGoodsById(Integer.parseInt(gid));
+    }
+
+    /**
+     * 修改商品
+     * @param good
+     * @return
+     */
+    @Override
+    public boolean updateGoods(Good good) {
+        return goodsDao.updateGoods(good);
     }
 }

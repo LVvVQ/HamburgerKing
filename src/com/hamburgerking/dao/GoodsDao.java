@@ -26,4 +26,18 @@ public interface GoodsDao {
      * @param good
      */
     public boolean insertGood(Good good);
+
+    /**
+     * 更具gid查找商品
+     * @param gid
+     * @return
+     */
+    public Good searchGoodsById(int gid);
+
+    /**
+     * 修改商品
+     * @param good
+     * @return
+     */
+    public boolean updateGoods(Good good);
 }

@@ -16,7 +16,7 @@ public interface GoodsService {
      * @param gids
      * @return
      */
-    public boolean deleteGoods(String gids);
+    public void deleteGoods(String gids);
 
     public ArrayList<Good> searchGood(String keyWord);
 
@@ -32,4 +32,18 @@ public interface GoodsService {
      * @param good
      */
     public boolean insertGood(Good good);
+
+    /**
+     * 根据gid查找商品
+     * @param gid
+     * @return
+     */
+    public Good searchGoodsById(String gid);
+
+    /**
+     * 修改商品
+     * @param good
+     * @return
+     */
+    public boolean updateGoods(Good good);
 }
