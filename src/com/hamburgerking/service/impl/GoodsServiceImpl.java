@@ -1,14 +1,18 @@
 package com.hamburgerking.service.impl;
 
 import com.hamburgerking.bean.Good;
+import com.hamburgerking.dao.CommentsDAO;
 import com.hamburgerking.dao.GoodsDao;
+import com.hamburgerking.dao.impl.CommentsDAOImpl;
 import com.hamburgerking.dao.impl.GoodsDaoImpl;
+import com.hamburgerking.service.CommentsService;
 import com.hamburgerking.service.GoodsService;
 
 import java.util.ArrayList;
 
 public class GoodsServiceImpl implements GoodsService {
     private GoodsDao  goodsDao = new GoodsDaoImpl();
+    private CommentsService commentsService = new CommentsServiceImpl();
 
     /**
      * 查询所有商品
@@ -26,7 +30,12 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public boolean deleteGoods(String gid) {
-        return goodsDao.deleteGoods(Integer.parseInt(gid));
+        if(commentsService.deleteGoodOfComments(gid)){
+            return goodsDao.deleteGoods(Integer.parseInt(gid));
+        }else{
+            return false;
+        }
+
     }
 
 
@@ -42,12 +51,12 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public void deleteSearchGoods(String[] gids) {
-        //设置返回值
-        boolean flag = false;
         //遍历数组
         for(String gid : gids){
-            //调用删除单个商品
-            goodsDao.deleteGoods(Integer.parseInt(gid));
+            if(commentsService.deleteGoodOfComments(gid)){
+                //调用删除单个商品
+                goodsDao.deleteGoods(Integer.parseInt(gid));
+            }
         }
     }
 
