@@ -44,7 +44,7 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded p-4">
                 <h6 class="mb-4">添加商品</h6>
-                <form>
+                <form action="insertGoodsServlet" method="post" enctype="multipart/form-data">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="gname" name="gname"
                            placeholder="商品名称" style="width: 400px">
@@ -57,8 +57,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">图片上传</label>
-                    <input style="width: 400px" class="form-control" type="file" id="formFile">
+                    <input style="width: 400px" class="form-control" type="file" id="formFile" name="image">
                 </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="stock" name="stock"
+                               placeholder="商品数量" style="width: 400px">
+                        <label for="price">商品数量</label>
+                    </div>
                 <div class="form-floating">
                                 <textarea class="form-control" placeholder="商品描述"
                                           id="description" name="description"
@@ -66,7 +71,7 @@
                     <label for="description">商品描述</label>
                 </div>
                     <br />
-                    <button type="submit" class="btn btn-primary">修改</button>
+                    <button type="submit" class="btn btn-primary">添加</button>
                 </form>
             </div>
         </div>

@@ -20,4 +20,10 @@ public interface GoodsDao {
     public boolean deleteGoods(int gid);
 
     public ArrayList<Good> searchGood(String keyWord);
+
+    /**
+     * 增加商品
+     * @param good
+     */
+    public boolean insertGood(Good good);
 }

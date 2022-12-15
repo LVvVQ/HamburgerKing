@@ -98,4 +98,31 @@ public class GoodsDaoImpl implements GoodsDao {
 
         return goods;
     }
+
+    /**
+     * 增加商品
+     * @param good
+     * @return
+     */
+    @Override
+    public boolean insertGood(Good good) {
+        String sql = "INSERT INTO goods (gname,price,image,stock,description) values (?,?,?,?,?);";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,good.getGname());
+            pstmt.setDouble(2,good.getPrice());
+            pstmt.setString(3,good.getImage());
+            pstmt.setInt(4,good.getStock());
+            pstmt.setString(5,good.getDescription());
+            if(pstmt.executeUpdate() > 0){
+                return true;
+            }
+        }catch(SQLException e){
+            System.out.println("insertGood发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(pstmt,conn);
+        }
+        return false;
+    }
 }

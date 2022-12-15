@@ -26,4 +26,10 @@ public interface GoodsService {
      * @return
      */
     public void deleteSearchGoods(String[] gids);
+
+    /**
+     * 增加商品
+     * @param good
+     */
+    public boolean insertGood(Good good);
 }

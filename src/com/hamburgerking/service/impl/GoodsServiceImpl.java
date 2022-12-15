@@ -50,4 +50,13 @@ public class GoodsServiceImpl implements GoodsService {
             goodsDao.deleteGoods(Integer.parseInt(gid));
         }
     }
+
+    /**
+     * 增加商品
+     * @param good
+     */
+    @Override
+    public boolean insertGood(Good good) {
+        return goodsDao.insertGood(good);
+    }
 }
