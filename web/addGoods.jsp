@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="price" name="price"
-                           placeholder="价格" style="width: 400px">
+                           placeholder="价格" step="0.01" style="width: 400px">
                     <label for="price">价格</label>
                 </div>
                 <div class="mb-3">

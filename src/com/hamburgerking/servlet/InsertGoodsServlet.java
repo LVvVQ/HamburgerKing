@@ -16,6 +16,7 @@ import jakarta.servlet.http.Part;
 
 import java.io.*;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet("/insertGoodsServlet")
 @MultipartConfig
@@ -29,10 +30,8 @@ public class InsertGoodsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置地址
-        //final String FilePath = request.getServletContext().getRealPath("/upload");
-        final String realpath = request.getServletContext().getRealPath("hamburgerking");//获取项目目录
-        final String hamburgerking = realpath.substring(0, realpath.indexOf("hamburgerking"));//取到第一个hamburgerking
-        final String FilePath = hamburgerking + "\\hamburgerking\\web\\upload";
+        final String OutFilePath = request.getServletContext().getRealPath("/upload");//out目录下upload地址
+
         //设置编码
         request.setCharacterEncoding("utf-8");
 
@@ -46,14 +45,19 @@ public class InsertGoodsServlet extends HttpServlet {
         Part part = request.getPart("image");
         String filename = part.getSubmittedFileName();
 
+
+        //设置UUID
+        String uuid = UUID.randomUUID().toString();
+        String uuidFilename = uuid + filename;
+
         //上传文件到指定目录
-        part.write(FilePath + "\\" + filename);
+        part.write(OutFilePath + "\\" + uuidFilename); //上传到out目录下
 
         //封装对象
         Good good = new Good();
         good.setGname(gname);
         good.setPrice(Double.parseDouble(price));
-        good.setImage("upload\\" + filename);
+        good.setImage("upload\\" + uuidFilename);
         good.setStock(Integer.parseInt(stock));
         good.setDescription(description);
 
