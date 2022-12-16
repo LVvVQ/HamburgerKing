@@ -1,6 +1,3 @@
-<%@ page import="com.hamburgerking.service.impl.GoodsServiceImpl" %>
-<%@ page import="com.hamburgerking.bean.Good" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -106,14 +103,6 @@
     </script>
 </head>
 
-
-<%
-    ArrayList<Good> allGoods = (ArrayList<Good>) request.getAttribute("goods");
-    request.setCharacterEncoding("UTF-8");
-    request.setAttribute("allGoods",allGoods);
-
-%>
-
 <body>
 <div class="container-fluid position-relative bg-white d-flex p-0">
     <jsp:include page="sidebar.jsp" />
@@ -149,7 +138,7 @@
 
                         <tbody>
 
-                        <c:forEach items="${allGoods}" var="good">
+                        <c:forEach items="${goods}" var="good">
                             <tr>
                                 <td style="text-align: center"><input class="form-check-input" type="checkbox" name="goodId" value="${good.gid}"></td>
                                 <td>${good.gname}</td>
@@ -188,8 +177,7 @@
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="
-lib/chart/chart.min.js"></script>
+<script src="lib/chart/chart.min.js"></script>
 <script src="admin/lib/easing/easing.min.js"></script>
 <script src="admin/lib/waypoints/waypoints.min.js"></script>
 <script src="admin/lib/owlcarousel/owl.carousel.min.js"></script>
