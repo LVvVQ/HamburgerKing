@@ -14,9 +14,9 @@ import java.io.IOException;
 public class ManagerLogOutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //将session域里的用户名移除
+        //将session域里的管理员移除
         HttpSession session = req.getSession();
-        session.removeAttribute("managername");
+        session.removeAttribute("manager");
 
         //返回到登录界面
         resp.sendRedirect("managerLogin.jsp");

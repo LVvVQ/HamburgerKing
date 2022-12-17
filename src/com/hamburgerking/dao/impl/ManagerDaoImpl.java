@@ -21,7 +21,7 @@ public class ManagerDaoImpl implements ManagerDao {
      * @return
      */
     @Override
-    public boolean searchManager(Manager manager) {
+    public Manager searchManager(Manager manager) {
         String sql = "select * from managers where managername = ? and password = ?";
         try{
            conn = JDBCUtils.getConnection();
@@ -30,13 +30,17 @@ public class ManagerDaoImpl implements ManagerDao {
            pstmt.setString(2,manager.getPassword());
            rs = pstmt.executeQuery();
            if(rs.next()){
-               return true;
+               manager.setMid(rs.getInt(1));
+               manager.setManagername(rs.getString(2));
+               manager.setPassword(rs.getString(3));
+               manager.setAvatar(rs.getString(4));
+               return manager;
            }
         }catch (SQLException e){
             System.out.println("searchManager发生错误，错误原因: " + e.getMessage());
         }finally {
             JDBCUtils.close(rs,pstmt,conn);
         }
-        return false;
+        return null;
     }
 }

@@ -8,5 +8,5 @@ public interface ManagerDao {
      * @param manager
      * @return
      */
-    public boolean searchManager(Manager manager);
+    public Manager searchManager(Manager manager);
 }

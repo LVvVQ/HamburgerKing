@@ -8,5 +8,5 @@ public interface ManagerService {
      * @param manager
      * @return
      */
-    public boolean searchManger(Manager manager);
+    public Manager searchManger(Manager manager);
 }

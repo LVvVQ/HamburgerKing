@@ -97,11 +97,15 @@
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" name="managername" placeholder="管理员名" >
-                        <label for="floatingInput">管理员名</label>
+                        <label for="floatingInput">账号</label>
                     </div>
                     <div class="form-floating mb-4">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="密码" name="password">
                         <label for="floatingPassword">密码</label>
+                    </div>
+                    <div class="form-floating mb-4" style="margin-left:100px">
+                        <input type="radio" name="identity" value="admin"> 管理员
+                        <input type="radio" name="identity" checked="checked" style="margin-left:20px" value="user"> 游客
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="checkCode" name="checkCode" placeholder="验证码">
@@ -109,14 +113,10 @@
                     </div>
                     <img src="checkCode" id="imgCheckCode"> &nbsp;&nbsp;&nbsp;&nbsp;<a id="change" class="text-center mb-0" style="color: rgb(0,180,253)">看不清楚，换一张</a>
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <a href="">Forgot Password</a>
+
                     </div>
-                    <a  class="btn btn-primary py-3 w-100 mb-4" href="javascript:checkLogin()">Sign In</a>
-                    <p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
+                    <a  class="btn btn-primary py-3 w-100 mb-4" href="javascript:checkLogin()">登陆</a>
+                    <a  class="btn btn-primary py-3 w-100 mb-4">注册</a>
                     <p id="out" class="text-center mb-0" style="color: red">${msg}</p>
                 </div>
             </div>

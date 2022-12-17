@@ -13,7 +13,7 @@ public class ManagerServiceImpl implements ManagerService {
      * @return
      */
     @Override
-    public boolean searchManger(Manager manager) {
+    public Manager searchManger(Manager manager) {
         return managerDao.searchManager(manager);
     }
 }
