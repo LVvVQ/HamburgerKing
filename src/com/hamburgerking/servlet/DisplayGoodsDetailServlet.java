@@ -29,7 +29,7 @@ public class DisplayGoodsDetailServlet extends HttpServlet {
         req.setAttribute("good",good);
 
         //返回到GoodsDetail.jsp
-        req.getRequestDispatcher("GoodsDetail.jsp").forward(req,resp);
+        req.getRequestDispatcher("goodsDetail.jsp").forward(req,resp);
 
 
     }

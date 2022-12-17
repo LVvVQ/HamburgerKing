@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 22864
-  Date: 2022/12/17
-  Time: 13:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
@@ -85,7 +78,7 @@
 
 
             <!-- LOGO IMAGE -->
-            <div class="logo" data-mobile-logo="images/logo-01.png" data-sticky-logo="images/logo-01.png">
+            <div class="logo" data-mobile-logo="static/picture/logo-01.png" data-sticky-logo="static/picture/logo-01.png">
                 <a href="findAllGoodsServlet"><img src="static/picture/logo-01.png" alt="header-logo"></a>
             </div>
 
