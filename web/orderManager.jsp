@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 
 <html>
 <head>
@@ -8,6 +9,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <!-- Favicon -->
     <link href="admin/img/favicon.ico" rel="icon">
@@ -32,31 +34,57 @@
     <link href="admin/css/style.css" rel="stylesheet">
     <script type="text/javascript">
         function selectAll() {
-            var goodIDs = document.getElementsByName("goodId");
-            for (i = 0; i < goodIDs.length; i++) {
-                var goodID = goodIDs[i];
-                goodID.checked = true;
+            var orderIds = document.getElementsByName("orderId");
+            for (i = 0; i < orderIds.length; i++) {
+                var orderId = orderIds[i];
+                orderId.checked = true;
 
             }
         }
 
         function selectNone() {
-            var goodIDs = document.getElementsByName("goodId");
-            for (i = 0; i < goodIDs.length; i++) {
-                var goodID = goodIDs[i];
-                goodID.checked = false;
+            var orderIds = document.getElementsByName("orderId");
+            for (i = 0; i < orderIds.length; i++) {
+                var orderId = orderIds[i];
+                orderId.checked = false;
 
             }
         }
 
         function selectBack() {
-            var goodIDs = document.getElementsByName("goodId");
-            for (a = 0; a < goodIDs.length; a++) {
-                var goodID = goodIDs[a];
-                if (goodID.checked == false) {
-                    goodID.checked = true;
+            var orderIds = document.getElementsByName("orderId");
+            for (a = 0; a < orderIds.length; a++) {
+                var orderId = orderIds[a];
+                if (orderId.checked == false) {
+                    orderId.checked = true;
                 } else {
-                    goodID.checked = false
+                    orderId.checked = false
+                }
+
+            }
+        }
+
+        function deleteGood(oid){
+            if(confirm("您确认删除吗？")){
+                location.href="delOneOrderByIdServlet?oid=" + oid;
+            }
+        }
+
+        function deleteSelected(){
+            if(confirm("您确认删除吗？")){ //如果没有选中就提交表单 会报空指针异常
+                //如果没有选中就不提交表单 , 判断是否有选中
+                var flag = false;
+                var cbs = document.getElementsByName("goodId");
+                for(var i = 0; i < cbs.length; i++){
+                    if(cbs[i].checked){
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if(flag){
+                    //提交表单
+                    document.getElementById("form").submit();
                 }
 
             }
@@ -74,12 +102,22 @@
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded p-4">
-                <div class="d-flex align-items-center mb-4">
+
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
                     <h6 class="mb-0">订单列表</h6>
                     <form class="d-none d-md-flex ms-4" method="post" action="searchOrderByPageServlet">
                         <input class="form-control border-0" type="search" placeholder="输入订单号查询" name="keyword">
                         <input type="submit" class="btn btn-sm btn-primary" value="查询">
                     </form>
+                    </div>
+                    <c:if test="${resultInfo != null}">
+                        <div class="alert alert-success alert-dismissible align-items-center fade show" role="alert"
+                             style="width: 160px;height: 35px;padding: 5px 10px">
+                            <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding:9px 10px"></button>
+                        </div>
+                    </c:if>
                 </div>
                 <div class="table-responsive">
                     <form method="post" action="">
@@ -122,6 +160,7 @@
                                     <td>${order.totalPrice}</td>
                                     <td>
                                         <a class="btn btn-sm btn-primary" href="orderDetail.jsp">详情</a>
+                                        <a class="btn btn-sm btn-danger" onclick="deleteGood(${order.oid})">删除</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -134,7 +173,7 @@
                                class="btn btn-sm btn-primary"/>
                         <input type="button" name="back" value="反选" onclick="selectBack()"
                                class="btn btn-sm btn-primary"/>
-                        <input type="submit" class="btn btn-sm btn-danger" formaction="" value="删除">
+                        <a  class="btn btn-sm btn-danger" onclick="deleteSelected()" >删除选中</a>
                     </form>
                 </div>
             </div>

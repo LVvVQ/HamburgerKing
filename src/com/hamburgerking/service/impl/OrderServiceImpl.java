@@ -65,4 +65,9 @@ public class OrderServiceImpl implements OrderService {
 
         return page;
     }
+
+    @Override
+    public boolean delOneOrderById(int oid) {
+        return orderDao.delOneOrderById(oid);
+    }
 }

@@ -22,4 +22,6 @@ public interface OrderDao {
     List<Order> findByPage(int start, int rows);
 
     List<Order> searchOrder(String keyword, int start, int rows);
+
+    boolean delOneOrderById(int oid);
 }

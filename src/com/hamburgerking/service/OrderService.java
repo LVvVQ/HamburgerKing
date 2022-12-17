@@ -13,4 +13,6 @@ public interface OrderService {
     Page<Order> findOrderByPage(int currentPage, int rows);
 
     Page<Order> searchOrder(String keyword, int currentPage, int rows);
+
+    boolean delOneOrderById(int oid);
 }
