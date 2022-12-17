@@ -174,16 +174,19 @@
                 <div class="col-sm-6 col-lg-3">
                     <div class="menu-6-item bg-white">
                         <!-- IMAGE -->
-                        <div class="menu-6-img rel">
-                            <div class="hover-overlay">
+                        <a href="displayGoodsDetailServlet?gid=${good.gid}">
+                            <div class="menu-6-img rel">
+                             <div class="hover-overlay">
                                 <!-- Image -->
                                 <img style="width: 267px; height: 222.5px"
-                                        class="img-fluid"
-                                        src=${good.image}
-                                        alt="menu-image"
+                                     class="img-fluid"
+                                     src=${good.image}
+                                             alt="menu-image"
                                 />
+                             </div>
                             </div>
-                        </div>
+                        </a>
+
 
                         <!-- TEXT -->
                         <div class="menu-6-txt rel">
