@@ -14,19 +14,21 @@ public interface GoodsService {
 
     /**
      * 删除商品
+     * 先删除该商品的评论 在删除该商品
      * @param gids
-     * @return
+     * @return 是否删除成功
      */
-    public void deleteGoods(String gids);
+    public boolean deleteGoods(String gids);
 
     public ArrayList<Good> searchGood(String keyWord);
 
     /**
      * 批量删除商品
+     * 先删除数组里商品的评论 在删除商品
      * @param gids
      * @return
      */
-    public void deleteSearchGoods(String[] gids);
+    public boolean deleteSearchGoods(String[] gids);
 
     /**
      * 增加商品

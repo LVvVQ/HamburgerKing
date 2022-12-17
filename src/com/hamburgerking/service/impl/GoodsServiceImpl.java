@@ -31,9 +31,12 @@ public class GoodsServiceImpl implements GoodsService {
      * @return
      */
     @Override
-    public void deleteGoods(String gid) {
-        commentsService.deleteGoodOfComments(gid);
-        goodsDao.deleteGoods(Integer.parseInt(gid));
+    public boolean deleteGoods(String gid) {
+        if(commentsService.deleteGoodOfComments(gid) & goodsDao.deleteGoods(Integer.parseInt(gid))){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 
@@ -48,13 +51,15 @@ public class GoodsServiceImpl implements GoodsService {
      * @return
      */
     @Override
-    public void deleteSearchGoods(String[] gids) {
+    public boolean deleteSearchGoods(String[] gids) {
+        boolean flag = true;
         //遍历数组
         for(String gid : gids){
-            commentsService.deleteGoodOfComments(gid);
-            //调用删除单个商品
-            goodsDao.deleteGoods(Integer.parseInt(gid));
+            if(!commentsService.deleteGoodOfComments(gid) | !goodsDao.deleteGoods(Integer.parseInt(gid))){
+                flag = false;
+            }
         }
+        return  flag;
     }
 
     /**

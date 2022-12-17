@@ -1,5 +1,6 @@
 package com.hamburgerking.servlet;
 
+import com.hamburgerking.bean.ResultInfo;
 import com.hamburgerking.service.GoodsService;
 import com.hamburgerking.service.impl.GoodsServiceImpl;
 import jakarta.servlet.ServletException;
@@ -20,7 +21,20 @@ public class DeleteGoodsServlet extends HttpServlet {
 
         //调用service删除
         GoodsService service = new GoodsServiceImpl();
-        service.deleteSearchGoods(goodIds);
+        boolean flag = service.deleteSearchGoods(goodIds);
+
+        //设置返回结果对象
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(flag);
+
+        if(flag){
+            resultInfo.setMsg("删除成功");
+        }else{
+            resultInfo.setMsg("删除失败");
+        }
+
+        //将返回结果存入request
+        req.setAttribute("resultInfo",resultInfo);
 
         //跳转至searchGoodServlet查询所有商品
         req.getRequestDispatcher("searchGoodsByPageServlet").forward(req,resp);

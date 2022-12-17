@@ -113,12 +113,21 @@
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded p-4">
-                <div class="d-flex align-items-center mb-4">
+                <div class="d-flex align-items-center mb-4 justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
                     <h6 class="mb-0">商品列表</h6>
                     <form class="d-none d-md-flex ms-4" method="post" action="searchGoodsByPageServlet">
                         <input class="form-control border-0" type="search" placeholder="输入商品名查询" name="keyWord">
                         <input type="submit" class="btn btn-sm btn-primary" value="查询">
                     </form>
+                    </div>
+                    <c:if test="${resultInfo != null}">
+                        <div class="alert alert-success alert-dismissible align-items-center fade show" role="alert"
+                             style="width: 160px;height: 35px;padding: 5px 10px">
+                            <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding:9px 10px"></button>
+                        </div>
+                    </c:if>
                 </div>
                 <div class="table-responsive">
                     <form method="post" action="deleteGoodsServlet" id="form">
