@@ -32,7 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public boolean deleteGoods(String gid) {
-        if(commentsService.deleteGoodOfComments(gid) & goodsDao.deleteGoods(Integer.parseInt(gid))){
+        if(commentsService.deleteGoodOfComments(gid) && goodsDao.deleteGoods(Integer.parseInt(gid))){
             return true;
         }else {
             return false;
