@@ -38,6 +38,8 @@ public class CommentsServiceImpl implements CommentsService {
      * @return 是否删除成功
      */
     public boolean deleteGoodOfComments(String gid){
+        if (commentsDAO.checkGoodOfComment(Integer.parseInt(gid))==0)
+            return true;
         return commentsDAO.deleteGoodOfComments(Integer.parseInt(gid));
     }
 }

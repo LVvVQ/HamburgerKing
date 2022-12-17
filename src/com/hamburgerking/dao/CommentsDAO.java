@@ -11,4 +11,5 @@ public interface CommentsDAO {
     public ArrayList<Comment> findManagerGoodComment(int gid);
     public boolean deleteComments(int cid);
     public boolean deleteGoodOfComments(int gid);
+    public int checkGoodOfComment(int gid);
 }

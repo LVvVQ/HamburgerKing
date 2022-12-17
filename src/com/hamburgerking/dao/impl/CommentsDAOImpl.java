@@ -108,6 +108,30 @@ public class CommentsDAOImpl implements CommentsDAO {
         return false;
     }
 
+    /**
+     * 判断一个商品有多少评论
+     * @param gid
+     * @return 评论数量
+     */
+    public int checkGoodOfComment(int gid){
+        int a = 0;
+        try {
+            conn=JDBCUtils.getConnection();
+            sql="SELECT COUNT(*) FROM comments,goods WHERE comments.gid=goods.gid and goods.gid=?";
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setInt(1, gid);
+            rs= pstmt.executeQuery();
+            rs.next();
+            a=rs.getInt(1);
+            return a;
+        }catch(SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+        return a;
+    }
+
     //显示用户评论
     public ArrayList<Comment> findOneGoodComment(int gid) {//显示用户评论
         sql="SELECT cid,users.uid,gid,users.username, date,content,avatar from comments , users " +
