@@ -39,11 +39,14 @@
     <!-- TEMPLATE CSS -->
     <link href="static/css/style1.css" rel="stylesheet">
 
+    <script type="text/javascript">
+        function addToCart() {
+            let goodNums = $('#goodNums').val();
+            location.href = "addToCartServlet?gid=${good.gid}&goodNums=" + goodNums;
+        }
+    </script>
+
 </head>
-
-
-
-
 <body>
 
 
@@ -240,15 +243,12 @@
                                 <p>Tags: <span>Burgers, Fast Food, Testo</span></p>
                             </div>
 
-                            <input class="qty" type="number" min="1" max="20" value="1">
+                            <input id="goodNums" class="qty" type="number" min="1" max="20" value="1">
 
                             <!-- Add To Cart -->
                             <div class="add-to-cart-btn bg-yellow ico-20 text-center">
-                                <a href="cart.html"><span class="flaticon-shopping-bag"></span> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="addToCart()"><span class="flaticon-shopping-bag"></span> Add to Cart</a>
                             </div>
-
-
-
                         </div>	<!-- END TEXT-->
 
                     </div>
@@ -273,13 +273,8 @@
                 <!-- FOOTER INFO -->
                 <div class="col-md-5 col-lg-4 col-xl-4">
                     <div class="footer-info mb-40">
-
                         <!-- Footer Logo -->
                         <div class="footer-logo"><img src="static/picture/logo-01.png" alt="footer-logo"></div>
-
-                        <!-- Footer Copyright -->
-                        <p>Copyright &copy; 2022.Company name All rights reserved.<a target="_blank" href="https://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-
                     </div>
                 </div>
 

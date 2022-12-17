@@ -105,7 +105,7 @@
                     <li>
                         <a href="#">Shop</a>
                         <ul>
-                            <li><a href="cart.jsp">Shopping Cart</a></li>
+                            <li><a href="addToCartServlet">Shopping Cart</a></li>
                         </ul>
                     </li>
 
@@ -205,7 +205,7 @@
 
                             <!-- Add To Cart -->
                             <div class="add-to-cart bg-yellow ico-10">
-                                <a href="product-single.html"
+                                <a href="addToCartServlet?gid=${good.gid}"
                                 ><span class="flaticon-shopping-bag"></span> Add to
                                     Cart</a
                                 >
