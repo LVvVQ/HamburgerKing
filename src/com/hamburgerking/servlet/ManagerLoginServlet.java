@@ -52,7 +52,7 @@ public class ManagerLoginServlet extends HttpServlet {
             //登录成功
             //将用户存入session
             session.setAttribute("managername",name);
-            req.getRequestDispatcher("searchGoodServlet").forward(req,resp);
+            req.getRequestDispatcher("searchGoodsByPageServlet").forward(req,resp);
         }
 
 

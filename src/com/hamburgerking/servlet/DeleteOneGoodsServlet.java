@@ -22,7 +22,7 @@ public class DeleteOneGoodsServlet extends HttpServlet {
         service.deleteGoods(id);
 
         //跳转至searchGoodServlet查询所有商品
-        req.getRequestDispatcher("searchGoodServlet").forward(req,resp);
+        req.getRequestDispatcher("searchGoodsByPageServlet").forward(req,resp);
     }
 
     @Override

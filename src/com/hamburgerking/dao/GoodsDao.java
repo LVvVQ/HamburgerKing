@@ -4,6 +4,7 @@ package com.hamburgerking.dao;
 import com.hamburgerking.bean.Good;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface GoodsDao {
     /**
@@ -40,4 +41,18 @@ public interface GoodsDao {
      * @return
      */
     public boolean updateGoods(Good good);
+
+    /**
+     * 查询总记录数
+     * @return
+     */
+    int findTotalCount(String keyWord);
+
+    /**
+     * 分页查询每页记录
+     * @param start
+     * @param rows
+     * @return
+     */
+    List<Good> findByPage(int start, int rows,String keyWord);
 }

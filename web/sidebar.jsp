@@ -28,7 +28,7 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>商品管理</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="searchGoodServlet" class="dropdown-item">商品列表</a>
+                    <a href="searchGoodsByPageServlet" class="dropdown-item">商品列表</a>
                     <a href="addGoods.jsp" class="dropdown-item">添加商品</a>
                 </div>
             </div>

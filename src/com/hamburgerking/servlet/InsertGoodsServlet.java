@@ -73,6 +73,6 @@ public class InsertGoodsServlet extends HttpServlet {
         request.setAttribute("insert_msg",insert_msg);
 
         //有涉及到数据共享 采用请求转发到searchGoodServlet
-        request.getRequestDispatcher("searchGoodServlet").forward(request,response);
+        request.getRequestDispatcher("searchGoodsByPageServlet").forward(request,response);
     }
 }

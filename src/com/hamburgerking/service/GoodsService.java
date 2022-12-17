@@ -1,6 +1,7 @@
 package com.hamburgerking.service;
 
 import com.hamburgerking.bean.Good;
+import com.hamburgerking.bean.Page;
 
 import java.util.ArrayList;
 
@@ -46,4 +47,12 @@ public interface GoodsService {
      * @return
      */
     public boolean updateGoods(Good good);
+
+    /**
+     * 分页查询
+     * @param currentPage
+     * @param rows
+     * @return
+     */
+    Page<Good> findGoodsByPage(String currentPage, String rows,String keyWord);
 }

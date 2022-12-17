@@ -6,6 +6,7 @@ import com.hamburgerking.util.JDBCUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GoodsDaoImpl implements GoodsDao {
     Connection conn = null;
@@ -183,5 +184,68 @@ public class GoodsDaoImpl implements GoodsDao {
            JDBCUtils.close(pstmt,conn);
        }
        return false;
+    }
+
+    /**
+     * 查询商品的总记录数
+     * 如果keyWord = null
+     * 执行select count(*) from goods where gname like '%%' 相当于查询全部商品记录
+     * 如果keyWord != null
+     * 执行select count(*) from goods where gname like '%kewWord%' 相当于查询符合where子句的全部商品记录
+     * @return
+     */
+    @Override
+    public int findTotalCount(String keyWord) {
+        String sql = "select count(*) from goods where gname like ?";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,"%" + keyWord + "%");
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                int totalCount = rs.getInt(1);
+                return totalCount;
+            }
+        }catch (SQLException e){
+            System.out.println("findTotalCount发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(rs,pstmt,conn);
+        }
+        return 0;
+    }
+
+    /**
+     * 分页查询所有商品
+     * @param start
+     * @param rows
+     * @return
+     */
+    @Override
+    public List<Good> findByPage(int start, int rows, String keyWord) {
+        String sql = "select * from goods where gname like ? limit ? , ?";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,"%" + keyWord + "%");
+            pstmt.setInt(2,start);
+            pstmt.setInt(3,rows);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                Good good = new Good();
+                good = new Good();
+                good.setGid(rs.getInt("gid"));
+                good.setGname(rs.getString("gname"));
+                good.setPrice(rs.getDouble("price"));
+                good.setImage(rs.getString("image"));
+                good.setStock(rs.getInt("stock"));
+                good.setDescription(rs.getString("description"));
+                goods.add(good);
+            }
+        }catch (SQLException e){
+            System.out.println("findByPage发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(rs,stmt,conn);
+        }
+        return goods;
     }
 }

@@ -65,7 +65,7 @@ public class UpdateGoodsServlet extends HttpServlet {
         req.setAttribute("insert_msg",update_msg);
 
         //有涉及到数据共享 采用请求转发到searchGoodServlet
-        req.getRequestDispatcher("searchGoodServlet").forward(req,resp);
+        req.getRequestDispatcher("searchGoodsByPageServlet").forward(req,resp);
     }
 
     @Override
