@@ -11,4 +11,6 @@ public interface OrderService {
      * @return 存储Order类型的Page对象
      */
     Page<Order> findOrderByPage(int currentPage, int rows);
+
+    Page<Order> searchOrder(String keyword, int currentPage, int rows);
 }

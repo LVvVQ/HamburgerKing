@@ -37,6 +37,25 @@ public class OrderDaoImpl implements OrderDao {
         return 0;
     }
 
+    @Override
+    public int keywordSearchOfTotalCount(String keyword) {
+        try {
+            String sql = "select count(*) from orders where oid like ?";
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + keyword + "%");
+            rs = pstmt.executeQuery();
+            rs.next();
+            int totalCount = rs.getInt(1);
+            return totalCount;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(rs, stmt, conn);
+        }
+        return 0;
+    }
+
     /**
      * 分页查找订单
      * @param start 起始索引
@@ -73,6 +92,41 @@ public class OrderDaoImpl implements OrderDao {
             e.printStackTrace();
         } finally {
             JDBCUtils.close(rs, stmt, conn);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> searchOrder(String keyword, int start, int rows) {
+        try {
+            String sql = "select oid, users.uid, username, status, date, nums, totalprice " +
+                    "from orders join users " +
+                    "on orders.uid = users.uid " +
+                    "where oid like ? " +
+                    "order by oid " +
+                    "limit ?, ?";
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + keyword + "%");
+            pstmt.setInt(2, start);
+            pstmt.setInt(3, rows);
+            rs = pstmt.executeQuery();
+            orders.clear();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOid(rs.getInt("oid"));
+                order.setUid(rs.getInt("uid"));
+                order.setUsername(rs.getString("username"));
+                order.setStatus(rs.getInt("status"));
+                order.setDate(rs.getDate("date"));
+                order.setNums(rs.getInt("nums"));
+                order.setTotalPrice(rs.getDouble("totalPrice"));
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(rs, pstmt, conn);
         }
         return orders;
     }

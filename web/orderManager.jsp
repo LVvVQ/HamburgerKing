@@ -76,7 +76,7 @@
             <div class="bg-light rounded p-4">
                 <div class="d-flex align-items-center mb-4">
                     <h6 class="mb-0">订单列表</h6>
-                    <form class="d-none d-md-flex ms-4" method="post" action="searchGoodServlet">
+                    <form class="d-none d-md-flex ms-4" method="post" action="searchOrderByPageServlet">
                         <input class="form-control border-0" type="search" placeholder="输入订单号查询" name="keyword">
                         <input type="submit" class="btn btn-sm btn-primary" value="查询">
                     </form>
@@ -144,7 +144,7 @@
                     <%-- 当前页大于第一页就显示上一页按钮--%>
                     <c:if test="${page.currentPage>1}">
                         <li class="page-item">
-                            <a class="page-link" href="findOrderByPageServlet?currentPage=${page.currentPage-1}&rows=5"
+                            <a class="page-link" href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${page.currentPage-1}&rows=5"
                                aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
@@ -156,12 +156,12 @@
                         <c:choose>
                             <c:when test="${page.currentPage == i}">
                                 <li class="page-item active"><a class="page-link"
-                                                                href="findOrderByPageServlet?currentPage=${i}&rows=5">${i}</a>
+                                                                href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${i}&rows=5">${i}</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
                                 <li class="page-item"><a class="page-link"
-                                                         href="findOrderByPageServlet?currentPage=${i}&rows=5">${i}</a>
+                                                         href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${i}&rows=5">${i}</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -169,7 +169,7 @@
                         <%-- 当前页小于总页数就显示下一页按钮--%>
                     <c:if test="${page.currentPage<page.totalPage}">
                         <li class="page-item">
-                            <a class="page-link" href="findOrderByPageServlet?currentPage=${page.currentPage+1}&rows=5"
+                            <a class="page-link" href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${page.currentPage+1}&rows=5"
                                aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>

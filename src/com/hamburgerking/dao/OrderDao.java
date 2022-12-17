@@ -11,6 +11,8 @@ public interface OrderDao {
      */
     int findTotalCount();
 
+    int keywordSearchOfTotalCount(String keyword);
+
     /**
      * 分页查找订单
      * @param start 起始索引
@@ -18,4 +20,6 @@ public interface OrderDao {
      * @return 订单集合
      */
     List<Order> findByPage(int start, int rows);
+
+    List<Order> searchOrder(String keyword, int start, int rows);
 }
