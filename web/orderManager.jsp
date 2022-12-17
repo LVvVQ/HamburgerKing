@@ -74,7 +74,7 @@
             if(confirm("您确认删除吗？")){ //如果没有选中就提交表单 会报空指针异常
                 //如果没有选中就不提交表单 , 判断是否有选中
                 var flag = false;
-                var cbs = document.getElementsByName("goodId");
+                var cbs = document.getElementsByName("orderId");
                 for(var i = 0; i < cbs.length; i++){
                     if(cbs[i].checked){
                         flag = true;
@@ -120,7 +120,7 @@
                     </c:if>
                 </div>
                 <div class="table-responsive">
-                    <form method="post" action="">
+                    <form id="form" method="post" action="delOrdersServlet">
                         <table class="table text-start table-bordered table-hover mb-0">
                             <thead>
                             <tr class="text-dark">

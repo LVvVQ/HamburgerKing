@@ -70,4 +70,13 @@ public class OrderServiceImpl implements OrderService {
     public boolean delOneOrderById(int oid) {
         return orderDao.delOneOrderById(oid);
     }
+
+    @Override
+    public boolean delOrders(String[] orderIds) {
+        boolean flag = false;
+        for(String orderId : orderIds) {
+            flag = orderDao.delOneOrderById(Integer.parseInt(orderId));
+        }
+        return flag;
+    }
 }
