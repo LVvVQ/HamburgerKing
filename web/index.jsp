@@ -169,7 +169,7 @@
         <div class="container">
             <div class="row">
                 <!-- MENU ITEM #1 -->
-                <c:forEach items="${goods}" var="good">
+                <c:forEach items="${page.list}" var="good">
 
                 <div class="col-sm-6 col-lg-3">
                     <div class="menu-6-item bg-white">
@@ -177,7 +177,7 @@
                         <div class="menu-6-img rel">
                             <div class="hover-overlay">
                                 <!-- Image -->
-                                <img
+                                <img style="width: 267px; height: 222.5px"
                                         class="img-fluid"
                                         src=${good.image}
                                         alt="menu-image"
@@ -211,34 +211,37 @@
                     </div>
                 </div>
                 </c:forEach>
+            </div>
+        </div>
+    </section>
                 <!-- END MENU ITEM #1 -->
 
                 <!-- PAGE PAGINATION
                       ============================================= -->
-                <div class="bg-color-01 page-pagination division">
+                <div class="bg-color-01 page-pagination division row">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1"
-                                            ><i class="fas fa-angle-left"></i
-                                            ></a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" href="#"
-                                            >1 <span class="sr-only">(current)</span></a
-                                            >
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"
-                                            ><i class="fas fa-angle-right"></i
-                                            ></a>
-                                        </li>
+
+                                        <c:if test="${page.currentPage > 1}">
+                                            <li class="page-item"><a class="page-link" href="findAllGoodsServlet?currentPage=${page.currentPage - 1}&rows=12">&laquo;</a></li>
+                                        </c:if>
+
+                                        <c:forEach begin="1" end="${page.totalPage}" var="i">
+                                            <c:if test="${page.currentPage == i}">
+                                                <li class="page-item active"><a class="page-link" href="findAllGoodsServlet?currentPage=${i}&rows=12">${i}</a></li>
+                                            </c:if>
+                                            <c:if test="${page.currentPage != i}">
+                                                <li class="page-item "><a class="page-link" href="findAllGoodsServlet?currentPage=${i}&rows=12">${i}</a></li>
+                                            </c:if>
+                                        </c:forEach>
+
+                                        <c:if test="${page.currentPage < page.totalPage}">
+                                            <li class="page-item"><a class="page-link" href="findAllGoodsServlet?currentPage=${page.currentPage + 1}&rows=12">&raquo;</a></li>
+                                        </c:if>
+
                                     </ul>
                                 </nav>
                             </div>

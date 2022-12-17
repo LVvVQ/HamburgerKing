@@ -47,12 +47,12 @@
                 <form action="insertGoodsServlet" method="post" enctype="multipart/form-data">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="gname" name="gname"
-                           placeholder="商品名称" style="width: 400px">
+                           placeholder="商品名称" style="width: 400px" required="required">
                     <label for="gname">商品名称</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="price" name="price"
-                           placeholder="价格" step="0.01" style="width: 400px">
+                           placeholder="价格" step="0.01" style="width: 400px" required="required">
                     <label for="price">价格</label>
                 </div>
                 <div class="mb-3">
@@ -61,7 +61,7 @@
                 </div>
                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="stock" name="stock"
-                               placeholder="商品数量" style="width: 400px">
+                               placeholder="商品数量" style="width: 400px" required="required">
                         <label for="price">商品数量</label>
                     </div>
                 <div class="form-floating">
