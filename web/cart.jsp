@@ -148,7 +148,7 @@
                                         <h5 class="h5-md">${orderDetail.nums}</h5>
                                     </td>
                                     <td data-label="Total" class="product-price-total">
-                                        <h5 class="h5-md">${orderDetail.totalPrice}</h5>
+                                        <h5 class="h5-md">$${orderDetail.totalPrice}</h5>
                                     </td>
                                     <td data-label="Delete" class="td-trash">
                                         <i class="far fa-trash-alt" onclick="delGood(${orderDetail.gid})"></i>

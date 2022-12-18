@@ -47,7 +47,7 @@ public class AddToCartServlet extends HttpServlet {
                 if (orderDetail.getGid() == gid) {
                     hasGood = true;
                     orderDetail.setNums(orderDetail.getNums() + goodNums);
-                    orderDetail.setTotalPrice(orderDetail.getPrice() * orderDetail.getNums());
+                    orderDetail.setTotalPrice(Double.parseDouble(String.format("%.2f",orderDetail.getPrice() * orderDetail.getNums())));
                 }
             }
         }
@@ -60,7 +60,7 @@ public class AddToCartServlet extends HttpServlet {
             orderDetail.setName(good.getGname());
             orderDetail.setPrice(good.getPrice());
             orderDetail.setNums(goodNums);
-            orderDetail.setTotalPrice(good.getPrice() * orderDetail.getNums());
+            orderDetail.setTotalPrice(Double.parseDouble(String.format("%.2f", good.getPrice() * orderDetail.getNums())));
             orderDetail.setImage(good.getImage());
             orderDetail.setDescription(good.getDescription());
             shopCart.add(orderDetail);
