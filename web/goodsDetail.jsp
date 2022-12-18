@@ -11,7 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Jthemes">
     <meta name="description" content="Testo - Pizza and Fast Food Landing Page Template">
-    <meta name="keywords" content="Jthemes, Food, Fast Food, Restaurant, Pizzeria, Restaurant Menu, Pizza, Burger, Sushi, Steak, Grill, Snack">
+    <meta name="keywords"
+          content="Jthemes, Food, Fast Food, Restaurant, Pizzeria, Restaurant Menu, Pizza, Burger, Sushi, Steak, Grill, Snack">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SITE TITLE -->
@@ -51,8 +52,6 @@
 <body>
 
 
-
-
 <!-- PRELOADER SPINNER
 ============================================= -->
 <div id="loader-wrapper">
@@ -87,9 +86,9 @@
 
                     </div>
                 </div>
-            </div>	  <!-- End row -->
-        </div>	   <!-- End container -->
-    </div>	<!-- END PAGE HERO -->
+            </div>      <!-- End row -->
+        </div>       <!-- End container -->
+    </div>    <!-- END PAGE HERO -->
 
 
     <!-- SINGLE PRODUCT
@@ -109,17 +108,18 @@
 
                             <!-- TAB-1 CONTENT -->
                             <div id="tab-1-img" class="tab-content text-center displayed">
-                                <img class="img-fluid" src="${good.image}" alt="menu-image" style="width: 600px;height: 500px">
+                                <img class="img-fluid" src="${good.image}" alt="menu-image"
+                                     style="width: 600px;height: 500px">
                             </div>
 
-                        </div>	<!-- END TABS CONTENT -->
+                        </div>    <!-- END TABS CONTENT -->
 
 
                         <!-- TABS NAVIGATION -->
 
 
                     </div>
-                </div>	<!-- END PRODUCT IMAGE -->
+                </div>    <!-- END PRODUCT IMAGE -->
 
 
                 <!-- PRODUCT DISCRIPTION -->
@@ -169,159 +169,165 @@
 
                             <!-- Add To Cart -->
                             <div class="add-to-cart-btn bg-yellow ico-20 text-center">
-                                <a href="javascript:void(0)" onclick="addToCart()"><span class="flaticon-shopping-bag"></span> Add to Cart</a>
+                                <a href="javascript:void(0)" onclick="addToCart()"><span
+                                        class="flaticon-shopping-bag"></span> Add to Cart</a>
                             </div>
-                        </div>	<!-- END TEXT-->
+                        </div>    <!-- END TEXT-->
 
                     </div>
-                </div>	<!-- END PRODUCT DISCRIPTION -->
+                </div>    <!-- END PRODUCT DISCRIPTION -->
 
 
-            </div>	  <!-- End row -->
-        </div>	   <!-- End container -->
-    </section>	<!-- END SINGLE PRODUCT -->
+            </div>      <!-- End row -->
+        </div>       <!-- End container -->
+    </section>    <!-- END SINGLE PRODUCT -->
 
 
-<!-- END MENU-6 -->
-<%--查看评论--%>
-    <section id="post-comments" class="wide-80 post-comments division">
+    <!-- END MENU-6 -->
+    <%--查看评论--%>
+    <section id="product-1-data" class="wide-80 single-product-data division">
         <div class="container">
             <div class="row">
-
-
-                <!-- COMMENTS WRAPPER -->
-                <div class="col-lg-10 offset-lg-1">
-                    <div class="comments-wrapper">
-
-                        <!-- Title -->
-                        <h5 class="h5-lg">Comments</h5>
-                        <!-- COMMENT #3 -->
-                        <div class="media">
-                            <table>
-                            <c:forEach items="${page.list}" var="comment">
-                            <!-- Comment-4 Avatar -->
-                                <tr>
-                                    <td>
-                                <c:if test="${comment.avatar2!=null}">
-                            <img class="mr-3" src="${comment.avatar2}"width="50" height="50" <%--人物头像--%> <%--alt="comment-avatar"--%>>
-                            </c:if>
-                                <c:if test="${comment.avatar!=null}">
-                                <img class="mr-3" src="${comment.avatar}" width="50" height="50" <%--alt="comment-avatar"--%>>
-                                </c:if>
-                                    </td>
-                                </tr>
-                                <%--<div class="media-body">--%>
-
-                                <%--<c:forEach items="${page.list}" var="comment">
-                                    <tr>
-                                            &lt;%&ndash;全选&ndash;%&gt;
-                                        <td style="text-align: center"><input class="form-check-input" type="checkbox" name="commentId" value="${comment.cid}"></td>
-                                        <td>${comment.username}${comment.managername}</td>
-                                        <td>${comment.date}</td>
-                                        <td>${comment.content}</td>
-                                        <td>
-                                            <a class="btn btn-sm btn-danger" href="javascript:deleteComment(${comment.cid})">删除</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>--%>
-                                <!-- Comment-4 Meta -->
-                                <tr>
-                                    <td>
-                                <div class="comment-meta">
-                                    <h6 class="h6-md mt-0">${comment.username}${comment.managername}<%--用户名--%></h6>
-                                    <span class="comment-date">${comment.date}<%--评论时间--%> </span>
-                                   <%-- <span class="btn-reply"><a href="#leave-comment" class="internal-link"><i class="fas fa-reply"></i> Reply</a></span>--%>
+                <div class="col-md-12">
+                    <div class="">
+                        <!-- TABS NAVIGATION -->
+                        <div class="tabs-nav">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <ul class="tabs-1 clearfix">
+                                        <!-- TAB-2 LINK -->
+                                        <li class="tab-link current" data-tab="tab-1">
+                                            <h5 class="h5-sm">Reviews</h5>
+                                        </li>
+                                    </ul>
                                 </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                <!-- Comment-4 Text -->
-                                <p><%--评论内容--%>${comment.content}
-                                </p>
-
                             </div>
-                        </td>
-                        </tr>
-                        </div>	<!-- END COMMENT #3 -->
-                    </table>
-                        <hr>
-                        </c:forEach>
-                        <div>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <ul class="pagination">
-                                <%-- 当前页大于第一页就显示上一页按钮--%>
-                                <c:if test="${page.currentPage>1}">
-                                    <li class="page-item">
-                                        <a class="page-link" href="displayGoodsDetailServlet?gid=${gid}&currentPage=${page.currentPage-1}&rows=5"
-                                           aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                </c:if>
-                                <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
-                                <c:forEach begin="1" end="${page.totalPage}" var="i">
-                                    <c:choose>
-                                        <c:when test="${page.currentPage == i}">
-                                            <li class="page-item active"><a class="page-link"
-                                                                            href="displayGoodsDetailServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
-                                            </li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li class="page-item"><a class="page-link"
-                                                                     href="displayGoodsDetailServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
-                                            </li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                                <%-- 当前页小于总页数就显示下一页按钮--%>
-                                <c:if test="${page.currentPage<page.totalPage}">
-                                    <li class="page-item">
-                                        <a class="page-link" href="displayGoodsDetailServlet?gid=${gid}&currentPage=${page.currentPage+1}&rows=5"
-                                           aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </c:if>
-                            </ul>
                         </div>
-                        <!-- COMMENT FORM -->
-                        <div id="leave-comment">
+                        <!-- END TABS NAVIGATION -->
 
-                            <!-- Title -->
-                            <h5 class="h5-lg">填写评论</h5>
+                        <!-- TABS CONTENT -->
+                        <div class="tabs-content">
+                            <!-- TAB-2 CONTENT -->
+                            <div id="tab-1" class="tab-content current">
+                                <!-- TESTIMONIAL #1 -->
+                                <c:forEach items="${page.list}" var="comment">
+                                    <div class="review-2 b-bottom">
+                                        <!-- Testimonial Author Avatar -->
+                                        <div class="review-2-avatar">
+                                            <c:if test="${comment.avatar!=null}">
+                                                <img
+                                                        src="${comment.avatar}"
+                                                        alt="testimonial-avatar"
+                                                />
+                                            </c:if>
+                                            <c:if test="${comment.avatar2!=null}">
+                                                <img
+                                                        src="${comment.avatar2}"
+                                                        alt="testimonial-avatar"
+                                                />
+                                            </c:if>
+                                        </div>
 
-                            <form action="insertUserCommentsServlet" method="post" <%--class="row comment-form"--%> >
-                                <input type="hidden" name="gid" value="${good.gid}"><br>
-                                <div class="col-md-12 input-message">
-                                    <p>Add Comment *</p>
-                                    <textarea class="form-control message" name="content" rows="6" placeholder="Enter Your Comment Here* ..." required=""></textarea>
-                                </div>
+                                        <!-- Testimonial Text -->
+                                        <div class="review-2-txt">
+                                            <!-- Rating -->
+                                            <div class="stars-rating stars-lg">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
 
-                                <!-- Contact Form Button -->
-                                <div class="col-lg-12 form-btn">
-                                    <input type="submit" class="btn btn-red tra-red-hover submit" value="添加评论"></input>
-                                </div>
+                                            <!-- Testimonial Author -->
+                                            <div class="review-info clearfix">
+                                                <h5 class="h5-xs">${comment.username}${comment.managername}</h5>
+                                                <span class="grey-color">${comment.date}</span>
+                                            </div>
 
-                                <!-- Contact Form Message -->
-                                <%--<div class="col-md-12 comment-form-msg text-center">
-                                    <div class="sending-msg"><span class="loading"></span></div>
-                                </div>--%>
-
-                            </form>
-
-                        </div>	<!-- END COMMENT FORM -->
-
+                                            <!-- Text -->
+                                            <p>${comment.content}</p>
+                                        </div>
+                                    </div>
+                                    <!--END TESTIMONIAL #1 -->
+                                </c:forEach>
+                            </div>
+                            <!-- END TAB-2 CONTENT -->
+                        </div>
+                        <!-- END TABS CONTENT -->
                     </div>
-                </div>	<!-- END COMMENTS WRAPPER -->
-
-
-
-            </div>     <!-- End row -->
-        </div>     <!-- End container -->
-    </section>	<!-- END POST COMMENTS -->
+                </div>
+            </div>
+            <!-- End row -->
+            <div style="padding: 0 35%">
+                <ul class="pagination">
+                    <%-- 当前页大于第一页就显示上一页按钮--%>
+                    <c:if test="${page.currentPage>1}">
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="displayGoodsDetailServlet?gid=${gid}&currentPage=${page.currentPage-1}&rows=5"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    </c:if>
+                    <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
+                    <c:forEach begin="1" end="${page.totalPage}" var="i">
+                        <c:choose>
+                            <c:when test="${page.currentPage == i}">
+                                <li class="page-item active"><a class="page-link"
+                                                                href="displayGoodsDetailServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link"
+                                                         href="displayGoodsDetailServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <%-- 当前页小于总页数就显示下一页按钮--%>
+                    <c:if test="${page.currentPage<page.totalPage}">
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="displayGoodsDetailServlet?gid=${gid}&currentPage=${page.currentPage+1}&rows=5"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </c:if>
+                </ul>
+            </div>
+            <form class="row" action="insertUserCommentsServlet">
+                <input type="hidden" name="gid" value="${good.gid}">
+                <div class="col-md-12 input-message">
+                    <p>Add Comment *</p>
+                    <textarea aria-required="true" class="form-control message" name="content" rows="6" placeholder="Enter Your Comment Here* ..." required=""></textarea>
+                </div>
+                <!-- Contact Form Button -->
+                <div class="row form-btn" style="margin-top: 15px;margin-left: 15px">
+                    <button type="submit" class="btn btn-red tra-red-hover submit">Post Comment</button>
+                    <c:if test="${resultInfo != null}">
+                        <c:if test="${resultInfo.flag == true}">
+                            <div class="alert alert-success alert-dismissible align-items-center fade show" role="alert"
+                                 style="width: 240px;height: 35px;padding: 5px 10px;margin: 13px 0 0 35px;">
+                                <i class="fa fa-exclamation-circle me-2"></i>&ensp;${resultInfo.msg}
+                            </div>
+                        </c:if>
+                        <c:if test="${resultInfo.flag == false}">
+                            <div class="alert alert-danger alert-dismissible align-items-center fade show" role="alert"
+                                 style="width: 240px;height: 35px;padding: 5px 10px;margin: 13px 0 0 35px;">
+                                <i class="fa fa-exclamation-circle me-2"></i>&ensp;${resultInfo.msg}
+                            </div>
+                        </c:if>
+                    </c:if>
+                </div>
+            </form>
+        </div>
+        <!-- End container -->
+    </section>
     <!-- END COMMENT FORM -->
     <!-- FOOTER-1
     ============================================= -->
@@ -348,8 +354,11 @@
                         <p class="p-xl">8721 M Central Avenue, CA 90036</p>
 
                         <!-- Contacts -->
-                        <p class="p-lg foo-email">Email: <a href="mailto:yourdomain@mail.com">hello@yourdomain.com</a></p>
-                        <p class="p-lg">Call Now: <span class="yellow-color"><a href="tel:123456789">789-654-3210</a></span></p>
+                        <p class="p-lg foo-email">Email: <a href="mailto:yourdomain@mail.com">hello@yourdomain.com</a>
+                        </p>
+                        <p class="p-lg">Call Now: <span class="yellow-color"><a
+                                href="tel:123456789">789-654-3210</a></span>
+                        </p>
 
                     </div>
                 </div>
@@ -361,29 +370,35 @@
 
                         <!-- Images -->
                         <ul class="text-center clearfix">
-                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-013.jpg" alt="insta-img"></a></li>
-                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-023.jpg" alt="insta-img"></a></li>
-                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-033.jpg" alt="insta-img"></a></li>
-                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-041.jpg" alt="insta-img"></a></li>
-                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-052.jpg" alt="insta-img"></a></li>
-                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-061.jpg" alt="insta-img"></a></li>
+                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-013.jpg"
+                                                                 alt="insta-img"></a></li>
+                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-023.jpg"
+                                                                 alt="insta-img"></a></li>
+                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-033.jpg"
+                                                                 alt="insta-img"></a></li>
+                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-041.jpg"
+                                                                 alt="insta-img"></a></li>
+                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-052.jpg"
+                                                                 alt="insta-img"></a></li>
+                            <li><a href="#" target="_blank"><img class="insta-img" src="static/picture/img-061.jpg"
+                                                                 alt="insta-img"></a></li>
                         </ul>
 
                     </div>
-                </div>	<!-- END FOOTER IMAGES -->
+                </div>    <!-- END FOOTER IMAGES -->
 
 
-            </div>	  <!-- End row -->
-        </div>	   <!-- End container -->
-    </footer>	<!-- END FOOTER-1 -->
+            </div>      <!-- End row -->
+        </div>       <!-- End container -->
+    </footer>    <!-- END FOOTER-1 -->
 
 
-</div>	<!-- END PAGE CONTENT -->
+</div>    <!-- END PAGE CONTENT -->
 
-                                <!-- Comment-4 Text -->
-                                <p>Etiam sapien sem magna at vitae pulvinar congue augue egestas pretium neque viverra suscipit
-                                    egestas magna porta ratione, mollis risus lectus porta rutrum arcu an aenean primis auctor
-                                </p>
+<!-- Comment-4 Text -->
+<p>Etiam sapien sem magna at vitae pulvinar congue augue egestas pretium neque viverra suscipit
+    egestas magna porta ratione, mollis risus lectus porta rutrum arcu an aenean primis auctor
+</p>
 
 <!-- EXTERNAL SCRIPTS
 ============================================= -->

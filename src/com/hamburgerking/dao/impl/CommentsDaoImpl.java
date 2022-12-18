@@ -1,8 +1,6 @@
 package com.hamburgerking.dao.impl;
 
 import com.hamburgerking.bean.Comment;
-import com.hamburgerking.bean.Good;
-import com.hamburgerking.bean.Order;
 import com.hamburgerking.dao.CommentsDAO;
 import com.hamburgerking.util.JDBCUtils;
 
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CommentsDAOImpl implements CommentsDAO {
+public class CommentsDaoImpl implements CommentsDAO {
     private Connection conn = null;
     private Statement stmt = null;
     private ResultSet rs = null;
@@ -23,15 +21,13 @@ public class CommentsDAOImpl implements CommentsDAO {
     //老板插入数据
     public boolean ManagerInsertComment(Comment comment){//老板插入数据
         boolean result=false;
-        Date date =new Date();
-        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm");//
-        comment.setDate(f.format(date));
         sql="insert into comments(gid,date,content,mid)values(?,?,?,?)";
         try {
             conn=JDBCUtils.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setInt(1, comment.getGid());
-            pstmt.setString(2, comment.getDate());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            pstmt.setString(2, simpleDateFormat.format(new Date()));
             pstmt.setString(3, comment.getContent());
             pstmt.setInt(4,comment.getMid());
             int flag=pstmt.executeUpdate();
@@ -48,9 +44,6 @@ public class CommentsDAOImpl implements CommentsDAO {
     //用户插入数据
     public boolean UserInsertComment(Comment comment){//用户插入数据
         boolean result=false;
-        Date date =new Date();
-        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm");//
-        comment.setDate(f.format(date));
         sql="insert into comments(gid,date,content,uid)values(?,?,?,?)";
         try {
             conn=JDBCUtils.getConnection();
@@ -58,7 +51,8 @@ public class CommentsDAOImpl implements CommentsDAO {
             System.out.println("comment"+comment.getUid());
             pstmt=conn.prepareStatement(sql);
             pstmt.setInt(1, comment.getGid());
-            pstmt.setString(2, comment.getDate());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            pstmt.setString(2, simpleDateFormat.format(new Date()));
             pstmt.setString(3, comment.getContent());
             pstmt.setInt(4,comment.getUid());
             int flag=pstmt.executeUpdate();

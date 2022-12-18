@@ -25,8 +25,6 @@ public class InsertUserCommentsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
         //设置编码
         request.setCharacterEncoding("utf-8");
 
@@ -37,24 +35,22 @@ public class InsertUserCommentsServlet extends HttpServlet {
         User user = (User)session.getAttribute("user");
         int uid = user.getUid();
 
-        //System.out.println(uid);
-
-
-
         Comment comment=new Comment();
         comment.setGid(gid);
         comment.setContent(content);
         comment.setUid(uid);
         //调用service方法  传入good对象
         CommentsService service = new CommentsServiceImpl();
-        String insert_msg = ""; //提示消息
-        if(service.UserInsertComment(comment)){
-            insert_msg = "评论插入成功";
+        ResultInfo resultInfo = new ResultInfo();
+        boolean insertIsSuccess = service.UserInsertComment(comment);
+        resultInfo.setFlag(insertIsSuccess);
+        if(insertIsSuccess){
+            resultInfo.setMsg("评论插入成功");
         }else{
-            insert_msg = "评论插入失败";
+            resultInfo.setMsg("评论插入失败");
         }
         //将insert_msg设置到request域
-        request.setAttribute("insert_msg",insert_msg);
+        request.setAttribute("resultInfo", resultInfo);
 
         //有涉及到数据共享 采用请求转发到searchGoodServlet
         request.getRequestDispatcher("displayGoodsDetailServlet").forward(request,response);

@@ -2,9 +2,7 @@ package com.hamburgerking.service.impl;
 
 import com.hamburgerking.bean.Good;
 import com.hamburgerking.bean.Page;
-import com.hamburgerking.dao.CommentsDAO;
 import com.hamburgerking.dao.GoodsDao;
-import com.hamburgerking.dao.impl.CommentsDAOImpl;
 import com.hamburgerking.dao.impl.GoodsDaoImpl;
 import com.hamburgerking.service.CommentsService;
 import com.hamburgerking.service.GoodsService;

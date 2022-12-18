@@ -1,18 +1,16 @@
 package com.hamburgerking.service.impl;
 
 import com.hamburgerking.bean.Comment;
-import com.hamburgerking.bean.Good;
-import com.hamburgerking.bean.Order;
 import com.hamburgerking.bean.Page;
 import com.hamburgerking.dao.CommentsDAO;
-import com.hamburgerking.dao.impl.CommentsDAOImpl;
+import com.hamburgerking.dao.impl.CommentsDaoImpl;
 import com.hamburgerking.service.CommentsService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommentsServiceImpl implements CommentsService {
-    private CommentsDAO commentsDAO=new CommentsDAOImpl();
+    private CommentsDAO commentsDAO=new CommentsDaoImpl();
 
     @Override//显示评论功能
     public ArrayList<Comment> findOneGoodComment(int gid) {//用户评论+管理员评论
