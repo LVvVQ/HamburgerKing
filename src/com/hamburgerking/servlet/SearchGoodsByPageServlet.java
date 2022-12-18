@@ -2,6 +2,7 @@ package com.hamburgerking.servlet;
 
 import com.hamburgerking.bean.Good;
 import com.hamburgerking.bean.Page;
+import com.hamburgerking.bean.ResultInfo;
 import com.hamburgerking.service.GoodsService;
 import com.hamburgerking.service.impl.GoodsServiceImpl;
 import jakarta.servlet.ServletException;
@@ -40,6 +41,15 @@ public class SearchGoodsByPageServlet extends HttpServlet {
         //调用service查询
         GoodsService service = new GoodsServiceImpl();
         Page<Good> page = service.findGoodsByPage(currentPage,rows,keyWord);
+
+        boolean flag = page.getList().size() == 0;
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(flag);
+        if(flag){
+            resultInfo.setMsg("没有相关商品");
+            req.setAttribute("resultInfo",resultInfo);
+        }
+
 
         //将Page存入request域
         req.setAttribute("page",page);
