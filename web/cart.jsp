@@ -40,6 +40,12 @@
 
     <!-- TEMPLATE CSS -->
     <link href="static/css/style1.css" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        function delGood(gid){
+            location.href = "delGoodFromCart?gid=" + gid;
+        }
+    </script>
 </head>
 
 <body>
@@ -211,7 +217,7 @@
                                         <h5 class="h5-md">${orderDetail.totalPrice}</h5>
                                     </td>
                                     <td data-label="Delete" class="td-trash">
-                                        <i class="far fa-trash-alt"></i>
+                                        <i class="far fa-trash-alt" onclick="delGood(${orderDetail.gid})"></i>
                                     </td>
                                 </tr>
                             </c:forEach>
