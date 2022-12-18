@@ -23,18 +23,17 @@ public class CommentsDAOImpl implements CommentsDAO {
     //老板插入数据
     public boolean ManagerInsertComment(Comment comment){//老板插入数据
         boolean result=false;
-        Date datea =new Date();
-        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm");//
-        comment.setDate(f.format(datea));
-        sql="insert into comments (gid,content,mid,date)values(?,?,?,?)";
+        Date date =new Date();
+        SimpleDateFormat f=new SimpleDateFormat("yy-MM-dd HH:mm");//
+        comment.setDate(f.format(date));
+        sql="insert into comment(gid,date,content,mid)values(?,?,?,?)";
         try {
             conn=JDBCUtils.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setInt(1, comment.getGid());
-            pstmt.setString(2, comment.getContent());
-            pstmt.setInt(3,comment.getMid());
-            pstmt.setString(4,comment.getDate());
-            System.out.print(sql);
+            pstmt.setString(2, comment.getDate());
+            pstmt.setString(3, comment.getContent());
+            pstmt.setInt(4,comment.getMid());
             int flag=pstmt.executeUpdate();
             if(flag>0) {
                 result=true;
@@ -61,7 +60,6 @@ public class CommentsDAOImpl implements CommentsDAO {
             pstmt.setString(2, comment.getDate());
             pstmt.setString(3, comment.getContent());
             pstmt.setInt(4,comment.getUid());
-            System.out.print(sql);
             int flag=pstmt.executeUpdate();
             if(flag>0) {
                 result=true;
@@ -70,7 +68,6 @@ public class CommentsDAOImpl implements CommentsDAO {
             System.out.println(e.getMessage());
         } finally {
             JDBCUtils.close(pstmt, conn);
-            System.out.println("用户插入释放");
         }
         return result;
     }
@@ -183,7 +180,6 @@ public class CommentsDAOImpl implements CommentsDAO {
                 comment.setDate(rs.getString("date"));
                 comment.setContent(rs.getString("content"));
                 comment.setAvatar(rs.getString("avatar"));
-                //comm.setGid(rs.getInt("Gid"));
                 comments.add(comment);
             }
         }catch(SQLException e) {
@@ -249,7 +245,6 @@ public class CommentsDAOImpl implements CommentsDAO {
         try {
             String sql = "select count(*) as countComments from comments where gid=?";
             conn = JDBCUtils.getConnection();
-            stmt = conn.createStatement();
             pstmt=conn.prepareStatement(sql);
             pstmt.setInt(1, gid);
             rs = pstmt.executeQuery();
@@ -259,7 +254,7 @@ public class CommentsDAOImpl implements CommentsDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.close(rs, stmt, conn);
+            JDBCUtils.close(rs, pstmt, conn);
         }
         return 0;
     }

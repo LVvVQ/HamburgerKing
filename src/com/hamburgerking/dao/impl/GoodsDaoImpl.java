@@ -66,7 +66,7 @@ public class GoodsDaoImpl implements GoodsDao {
         }catch (SQLException e){
             System.out.println("deleteGoods发生错误，错误原因: " + e.getMessage());
         }finally {
-            JDBCUtils.close(stmt,conn);
+            JDBCUtils.close(pstmt,conn);
         }
         return false;
     }
@@ -94,7 +94,7 @@ public class GoodsDaoImpl implements GoodsDao {
         }catch (SQLException e){
             System.out.println("searchGood发生错误，错误原因: " + e.getMessage());
         }finally {
-            JDBCUtils.close(pstmt,conn);
+            JDBCUtils.close(rs,pstmt,conn);
         }
 
         return goods;
@@ -244,7 +244,7 @@ public class GoodsDaoImpl implements GoodsDao {
         }catch (SQLException e){
             System.out.println("findByPage发生错误，错误原因: " + e.getMessage());
         }finally {
-            JDBCUtils.close(rs,stmt,conn);
+            JDBCUtils.close(rs,pstmt,conn);
         }
         return goods;
     }
