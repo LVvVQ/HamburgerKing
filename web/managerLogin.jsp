@@ -94,6 +94,13 @@
                         <a href="" class="">
                             <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>登录</h3>
                         </a>
+                        <c:if test="${resultInfo != null}">
+                            <div class="alert alert-success alert-dismissible align-items-center fade show" role="alert"
+                                 style="width: 160px;height: 35px;padding: 5px 10px">
+                                <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding:9px 10px"></button>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" name="managername" placeholder="管理员名" >
@@ -116,7 +123,7 @@
 
                     </div>
                     <a  class="btn btn-primary py-3 w-100 mb-4" href="javascript:checkLogin()">登陆</a>
-                    <a  class="btn btn-primary py-3 w-100 mb-4">注册</a>
+                    <a  class="btn btn-primary py-3 w-100 mb-4" href="UserRegister.jsp">注册</a>
                     <p id="out" class="text-center mb-0" style="color: red">${msg}</p>
                 </div>
             </div>

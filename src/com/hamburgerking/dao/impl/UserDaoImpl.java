@@ -45,4 +45,25 @@ public class UserDaoImpl implements UserDao {
         }
         return null;
     }
+
+    @Override
+    public boolean addUser(User user) {
+        String sql = "insert into users (username,password,balance,avatar) values (?,?,?,?)";
+        try{
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,user.getUsername());
+            pstmt.setString(2,user.getPassword());
+            pstmt.setDouble(3,user.getBalance());
+            pstmt.setString(4,user.getAvatar());
+            if(pstmt.executeUpdate() > 0){
+                return true;
+            }
+        }catch (SQLException e){
+            System.out.println("addUser发生错误，错误原因: " + e.getMessage());
+        }finally {
+            JDBCUtils.close(pstmt,conn);
+        }
+        return false;
+    }
 }

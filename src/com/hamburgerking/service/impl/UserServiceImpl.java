@@ -12,4 +12,9 @@ public class UserServiceImpl implements UserService {
     public User searchUser(User user) {
         return userDao.searchUser(user);
     }
+
+    @Override
+    public boolean addUser(User user) {
+        return userDao.addUser(user);
+    }
 }

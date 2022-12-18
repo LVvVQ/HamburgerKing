@@ -9,4 +9,6 @@ public interface UserService {
      * @return
      */
     public User searchUser(User user);
+
+    public boolean addUser(User user);
 }
