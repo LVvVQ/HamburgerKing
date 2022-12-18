@@ -123,15 +123,8 @@ public class OrderServiceImpl implements OrderService {
         order.setUid(uid);
         order.setStatus(status);
 
-        int count = 0;
-        double totalPrice = 0;
-        for (OrderDetail orderDetail : shopCart) {
-            count += orderDetail.getNums();
-            totalPrice += orderDetail.getTotalPrice();
-        }
-
-        order.setNums(count);
-        order.setTotalPrice(totalPrice);
+        order.setNums(0);
+        order.setTotalPrice(0);
         int oid = orderDao.insertOrder(order);
 
         boolean insertOrderDetailIsSuccess = false;
@@ -150,5 +143,42 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean changeStatus(int oid, int status) {
         return orderDao.changeStatus(oid, status);
+    }
+
+    @Override
+    public Page<OrderDetail> searchOrderDetailByGoodName(String keyword, int currentPage, int rows, int oid) {
+        Page<OrderDetail> page = new Page<>();
+        page.setCurrentPage(currentPage);
+        //调用findTotalCount方法来获取所有订单的数量
+        int totalCount = orderDao.goodNameSearchOfTotalCount(keyword, oid);
+        //设置page的总记录数属性
+        page.setTotalCount(totalCount);
+        //从第几条记录开始 假设请求的是第三页,一页显示5条记录, 所以start就为15,也就是稍后从数据库中的第15条开始查询5条记录
+        int start = (currentPage - 1) * rows;
+        //调用findByPage查找从第start条开始的rows条订单信息
+        List<OrderDetail> orders = orderDao.searchOrderDetailByGoodName(keyword, start, rows, oid);
+        //将返回的订单信息存储到page中的list集合中
+        page.setList(orders);
+
+        //总页数 = 所有的记录数/一页显示的行数,  除的尽就是刚好能显示完所有, 除不尽就多加一页显示
+        int totalPage = (totalCount % rows) == 0 ? totalCount / rows : (totalCount / rows) + 1;
+        //设置page的总页数属性
+        page.setTotalPage(totalPage);
+
+        return page;
+    }
+
+    @Override
+    public boolean delOneOrderDetailById(int did) {
+        return orderDao.delOneOrderDetailById(did);
+    }
+
+    @Override
+    public boolean delOrderDetails(String[] dids) {
+        boolean flag = false;
+        for(String did : dids) {
+            flag = orderDao.delOneOrderDetailById(Integer.parseInt(did));
+        }
+        return flag;
     }
 }

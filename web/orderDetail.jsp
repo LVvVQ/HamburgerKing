@@ -32,31 +32,57 @@
     <link href="admin/css/style.css" rel="stylesheet">
     <script type="text/javascript">
         function selectAll() {
-            var goodIDs = document.getElementsByName("goodId");
-            for (i = 0; i < goodIDs.length; i++) {
-                var goodID = goodIDs[i];
-                goodID.checked = true;
+            var dids = document.getElementsByName("did");
+            for (i = 0; i < dids.length; i++) {
+                var did = dids[i];
+                did.checked = true;
 
             }
         }
 
         function selectNone() {
-            var goodIDs = document.getElementsByName("goodId");
-            for (i = 0; i < goodIDs.length; i++) {
-                var goodID = goodIDs[i];
-                goodID.checked = false;
+            var dids = document.getElementsByName("did");
+            for (i = 0; i < dids.length; i++) {
+                var did = dids[i];
+                did.checked = false;
 
             }
         }
 
         function selectBack() {
-            var goodIDs = document.getElementsByName("goodId");
-            for (a = 0; a < goodIDs.length; a++) {
-                var goodID = goodIDs[a];
-                if (goodID.checked == false) {
-                    goodID.checked = true;
+            var dids = document.getElementsByName("did");
+            for (a = 0; a < dids.length; a++) {
+                var did = dids[a];
+                if (did.checked == false) {
+                    did.checked = true;
                 } else {
-                    goodID.checked = false
+                    did.checked = false
+                }
+
+            }
+        }
+
+        function deleteGood(did) {
+            if (confirm("您确认删除吗？")) {
+                location.href = "delOneOrderDetailByIdServlet?did=" + did + "&oid=" + ${oid};
+            }
+        }
+
+        function deleteSelected() {
+            if (confirm("您确认删除吗？")) { //如果没有选中就提交表单 会报空指针异常
+                //如果没有选中就不提交表单 , 判断是否有选中
+                var flag = false;
+                var cbs = document.getElementsByName("did");
+                for (var i = 0; i < cbs.length; i++) {
+                    if (cbs[i].checked) {
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    //提交表单
+                    document.getElementById("form").submit();
                 }
 
             }
@@ -74,11 +100,38 @@
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded p-4">
-                <div class="d-flex align-items-center mb-4">
-                    <h6 class="mb-0">订单详情</h6>
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0">订单详情</h6>
+                        <form class="d-none d-md-flex ms-4" method="post"
+                              action="searchOrderDetailByPageServlet?oid=${oid}">
+                            <input class="form-control border-0" type="search" placeholder="输入商品名查询" name="keyword">
+                            <input type="submit" class="btn btn-sm btn-primary" value="查询">
+                        </form>
+                    </div>
+                    <c:if test="${resultInfo != null}">
+                        <c:if test="${resultInfo.flag == true}">
+                            <div class="alert alert-success alert-dismissible align-items-center fade show"
+                                 role="alert"
+                                 style="width: 160px;height: 35px;padding: 5px 10px">
+                                <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                        style="padding:9px 10px"></button>
+                            </div>
+                        </c:if>
+                        <c:if test="${resultInfo.flag == false}">
+                            <div class="alert alert-danger alert-dismissible align-items-center fade show"
+                                 role="alert"
+                                 style="width: 160px;height: 35px;padding: 5px 10px">
+                                <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                        style="padding:9px 10px"></button>
+                            </div>
+                        </c:if>
+                    </c:if>
                 </div>
                 <div class="table-responsive">
-                    <form method="post" action="">
+                    <form method="post" action="delOrderDetailsServlet?oid=${oid}" id="form">
                         <table class="table text-start table-bordered table-hover mb-0">
                             <thead>
                             <tr class="text-dark">
@@ -95,37 +148,24 @@
                             </thead>
 
                             <tbody>
-
-                            <tr>
-                                <td style="text-align: center"><input class="form-check-input" type="checkbox"
-                                                                      name="goodId" value=1></td>
-                                <td>1</td>
-                                <td>CRISPY CHICKEN</td>
-                                <td>
-                                    <img width="80px" height="70px" src="static/picture/burger-11.jpg" alt="商品图片" />
-                                </td>
-                                <td>10</td>
-                                <td>12</td>
-                                <td>120</td>
-                                <td>
-                                    <input type="submit" class="btn btn-sm btn-primary" value="编辑">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center"><input class="form-check-input" type="checkbox"
-                                                                      name="goodId" value=1></td>
-                                <td>2</td>
-                                <td>ULTIMATE BACON</td>
-                                <td>
-                                    <img width="80px" height="70px" src="static/picture/burger-12.jpg" alt="商品图片" />
-                                </td>
-                                <td>2</td>
-                                <td>12</td>
-                                <td>24</td>
-                                <td>
-                                    <input type="submit" class="btn btn-sm btn-primary" value="编辑">
-                                </td>
-                            </tr>
+                            <c:forEach items="${page.list}" var="orderDetail">
+                                <tr>
+                                    <td style="text-align: center"><input class="form-check-input" type="checkbox"
+                                                                          name="did" value=${orderDetail.did}></td>
+                                    <td>${orderDetail.gid}</td>
+                                    <td>${orderDetail.name}</td>
+                                    <td>
+                                        <img width="80px" height="70px" src="${orderDetail.image}" alt="商品图片"/>
+                                    </td>
+                                    <td>${orderDetail.nums}</td>
+                                    <td>${orderDetail.price}</td>
+                                    <td>${orderDetail.totalPrice}</td>
+                                    <td>
+                                        <input type="submit" class="btn btn-sm btn-primary" value="编辑">
+                                        <a class="btn btn-sm btn-danger" onclick="deleteGood(${orderDetail.did})">删除</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                         <br>
@@ -135,9 +175,51 @@
                                class="btn btn-sm btn-primary"/>
                         <input type="button" name="back" value="反选" onclick="selectBack()"
                                class="btn btn-sm btn-primary"/>
-                        <input type="submit" class="btn btn-sm btn-danger" formaction="" value="删除">
+                        <a class="btn btn-sm btn-danger" onclick="deleteSelected()">删除选中</a>
                     </form>
                 </div>
+            </div>
+            <br>
+            <div>
+                <ul class="pagination">
+                    <%-- 当前页大于第一页就显示上一页按钮--%>
+                    <c:if test="${page.currentPage>1}">
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="searchOrderDetailByPageServlet?keyword=${keyword}&currentPage=${page.currentPage-1}&rows=5&oid=${oid}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    </c:if>
+                    <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
+                    <c:forEach begin="1" end="${page.totalPage}" var="i">
+                        <c:choose>
+                            <c:when test="${page.currentPage == i}">
+                                <li class="page-item active"><a class="page-link"
+                                                                href="searchOrderDetailByPageServlet?keyword=${keyword}&currentPage=${i}&rows=5&oid=${oid}">${i}</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link"
+                                                         href="searchOrderDetailByPageServlet?keyword=${keyword}&currentPage=${i}&rows=5&oid=${oid}">${i}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <%-- 当前页小于总页数就显示下一页按钮--%>
+                    <c:if test="${page.currentPage<page.totalPage}">
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="searchOrderDetailByPageServlet?keyword=${keyword}&currentPage=${page.currentPage+1}&rows=5&oid=${oid}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </c:if>
+                </ul>
             </div>
         </div>
         <!-- Recent Sales End -->

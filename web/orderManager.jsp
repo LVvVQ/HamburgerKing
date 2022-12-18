@@ -159,7 +159,7 @@
                                     </c:choose>
                                     <td>${order.totalPrice}</td>
                                     <td>
-                                        <a class="btn btn-sm btn-primary" href="orderDetail.jsp">详情</a>
+                                        <a class="btn btn-sm btn-primary" href="searchOrderDetailByPageServlet?oid=${order.oid}">详情</a>
                                         <a class="btn btn-sm btn-danger" onclick="deleteGood(${order.oid})">删除</a>
                                     </td>
                                 </tr>

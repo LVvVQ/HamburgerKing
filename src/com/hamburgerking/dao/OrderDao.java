@@ -38,4 +38,10 @@ public interface OrderDao {
     boolean changeStatus(int oid, int status);
 
     boolean delOrderDetailByOid(int oid);
+
+    int goodNameSearchOfTotalCount(String keyword, int oid);
+
+    List<OrderDetail> searchOrderDetailByGoodName(String keyword, int start, int rows, int oid);
+
+    boolean delOneOrderDetailById(int did);
 }

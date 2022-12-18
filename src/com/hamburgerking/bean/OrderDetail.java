@@ -1,6 +1,7 @@
 package com.hamburgerking.bean;
 
 public class OrderDetail {
+    private int did;
     private int oid;
     private int gid;
     private String name;
@@ -13,7 +14,8 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(int oid, int gid, String name, int nums, double price, double totalPrice, String image, String description) {
+    public OrderDetail(int did, int oid, int gid, String name, int nums, double price, double totalPrice, String image, String description) {
+        this.did = did;
         this.oid = oid;
         this.gid = gid;
         this.name = name;
@@ -22,6 +24,14 @@ public class OrderDetail {
         this.totalPrice = totalPrice;
         this.image = image;
         this.description = description;
+    }
+
+    public int getDid() {
+        return did;
+    }
+
+    public void setDid(int did) {
+        this.did = did;
     }
 
     public int getOid() {
@@ -91,10 +101,15 @@ public class OrderDetail {
     @Override
     public String toString() {
         return "OrderDetail{" +
-                "oid=" + oid +
+                "did=" + did +
+                ", oid=" + oid +
+                ", gid=" + gid +
+                ", name='" + name + '\'' +
                 ", nums=" + nums +
                 ", price=" + price +
                 ", totalPrice=" + totalPrice +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

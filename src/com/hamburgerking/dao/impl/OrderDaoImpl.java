@@ -18,6 +18,7 @@ public class OrderDaoImpl implements OrderDao {
     private PreparedStatement pstmt = null;
     private ResultSet rs = null;
     ArrayList<Order> orders = new ArrayList<>();
+    ArrayList<OrderDetail> orderDetails = new ArrayList<>();
 
     /**
      * 查询一共有多少订单
@@ -217,7 +218,7 @@ public class OrderDaoImpl implements OrderDao {
             pstmt.setInt(1, order.getUid());
             pstmt.setInt(2, order.getStatus());
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             pstmt.setString(3, simpleDateFormat.format(new Date()));
             pstmt.setInt(4, order.getNums());
             pstmt.setDouble(5, order.getTotalPrice());
@@ -242,15 +243,16 @@ public class OrderDaoImpl implements OrderDao {
     public boolean insertOrderDetail(int oid, OrderDetail orderDetail) {
         try {
             conn = JDBCUtils.getConnection();
-            String sql = "insert into orderdetails(oid, gid, nums, price, totalprice, image, description) values (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into orderdetails(oid, gid, name, nums, price, totalprice, image, description) values (?, ?, ?, ?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, oid);
             pstmt.setInt(2, orderDetail.getGid());
-            pstmt.setInt(3, orderDetail.getNums());
-            pstmt.setDouble(4, orderDetail.getPrice());
-            pstmt.setDouble(5, orderDetail.getTotalPrice());
-            pstmt.setString(6, orderDetail.getImage());
-            pstmt.setString(7, orderDetail.getDescription());
+            pstmt.setString(3, orderDetail.getName());
+            pstmt.setInt(4, orderDetail.getNums());
+            pstmt.setDouble(5, orderDetail.getPrice());
+            pstmt.setDouble(6, orderDetail.getTotalPrice());
+            pstmt.setString(7, orderDetail.getImage());
+            pstmt.setString(8, orderDetail.getDescription());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -318,6 +320,76 @@ public class OrderDaoImpl implements OrderDao {
         } finally {
             JDBCUtils.close(pstmt, conn);
         }
+        return false;
+    }
+
+    @Override
+    public int goodNameSearchOfTotalCount(String keyword, int oid) {
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "select count(*) from orderDetails where name like ? and oid = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + keyword + "%");
+            pstmt.setInt(2, oid);
+            rs = pstmt.executeQuery();
+            rs.next();
+            int totalCount = rs.getInt(1);
+            return totalCount;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+        return 0;
+    }
+
+    @Override
+    public List<OrderDetail> searchOrderDetailByGoodName(String keyword, int start, int rows, int oid) {
+        try {
+            String sql = "select * from orderDetails where name like ? and oid = ? order by gid limit ?, ?";
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + keyword + "%");
+            pstmt.setInt(2, oid);
+            pstmt.setInt(3, start);
+            pstmt.setInt(4, rows);
+            rs = pstmt.executeQuery();
+            orderDetails.clear();
+            while (rs.next()) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setDid(rs.getInt("did"));
+                orderDetail.setOid(rs.getInt("oid"));
+                orderDetail.setGid(rs.getInt("gid"));
+                orderDetail.setName(rs.getString("name"));
+                orderDetail.setNums(rs.getInt("Nums"));
+                orderDetail.setPrice(rs.getDouble("price"));
+                orderDetail.setTotalPrice(rs.getDouble("totalPrice"));
+                orderDetail.setImage(rs.getString("image"));
+                orderDetail.setDescription(rs.getString("description"));
+                orderDetails.add(orderDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+        return orderDetails;
+    }
+
+    @Override
+    public boolean delOneOrderDetailById(int did) {
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "delete from orderdetails where did = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, did);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(pstmt, conn);
+        }
+
         return false;
     }
 }

@@ -28,4 +28,10 @@ public interface OrderService {
     Order findOrderByOid(int oid);
 
     boolean changeStatus(int oid, int status);
+
+    Page<OrderDetail> searchOrderDetailByGoodName(String keyword, int currentPage, int rows, int oid);
+
+    boolean delOneOrderDetailById(int did);
+
+    boolean delOrderDetails(String[] dids);
 }
