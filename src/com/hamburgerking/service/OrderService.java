@@ -34,4 +34,8 @@ public interface OrderService {
     boolean delOneOrderDetailById(int did);
 
     boolean delOrderDetails(String[] dids);
+
+    OrderDetail findOneOrderDetail(int did);
+
+    boolean editOrderDetail(OrderDetail orderDetail);
 }

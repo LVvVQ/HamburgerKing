@@ -101,18 +101,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delOneOrderById(int oid) {
-        boolean flag = orderDao.delOrderDetailByOid(oid);
-        if (flag) {
-            flag = orderDao.delOneOrderById(oid);
-        }
-        return flag;
+        return orderDao.delOrderDetailByOid(oid);
     }
 
     @Override
     public boolean delOrders(String[] orderIds) {
         boolean flag = false;
         for(String orderId : orderIds) {
-            flag = orderDao.delOneOrderById(Integer.parseInt(orderId));
+            flag = orderDao.delOrderDetailByOid(Integer.parseInt(orderId));
         }
         return flag;
     }
@@ -180,5 +176,15 @@ public class OrderServiceImpl implements OrderService {
             flag = orderDao.delOneOrderDetailById(Integer.parseInt(did));
         }
         return flag;
+    }
+
+    @Override
+    public OrderDetail findOneOrderDetail(int did) {
+        return orderDao.findOneOrderDetail(did);
+    }
+
+    @Override
+    public boolean editOrderDetail(OrderDetail orderDetail) {
+        return orderDao.updateOrderDetailByDid(orderDetail);
     }
 }

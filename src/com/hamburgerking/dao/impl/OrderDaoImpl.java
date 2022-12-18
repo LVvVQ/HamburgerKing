@@ -22,6 +22,7 @@ public class OrderDaoImpl implements OrderDao {
 
     /**
      * 查询一共有多少订单
+     *
      * @return 总订单量
      */
     @Override
@@ -56,7 +57,7 @@ public class OrderDaoImpl implements OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.close(rs, stmt, conn);
+            JDBCUtils.close(rs, pstmt, conn);
         }
         return 0;
     }
@@ -75,15 +76,16 @@ public class OrderDaoImpl implements OrderDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.close(rs, stmt, conn);
+            JDBCUtils.close(rs, pstmt, conn);
         }
         return 0;
     }
 
     /**
      * 分页查找订单
+     *
      * @param start 起始索引
-     * @param rows 一页显示的行数
+     * @param rows  一页显示的行数
      * @return 订单集合
      */
     @Override
@@ -193,23 +195,6 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean delOneOrderById(int oid) {
-        try {
-            conn = JDBCUtils.getConnection();
-            String sql = "delete from orders where oid = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, oid);
-            return pstmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.close(pstmt, conn);
-        }
-
-        return false;
-    }
-
-    @Override
     public int insertOrder(Order order) {
         try {
             conn = JDBCUtils.getConnection();
@@ -309,7 +294,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public boolean delOrderDetailByOid(int oid) {
-        try{
+        try {
             conn = JDBCUtils.getConnection();
             String sql = "delete from orderdetails where oid = ?";
             pstmt = conn.prepareStatement(sql);
@@ -390,6 +375,55 @@ public class OrderDaoImpl implements OrderDao {
             JDBCUtils.close(pstmt, conn);
         }
 
+        return false;
+    }
+
+    @Override
+    public OrderDetail findOneOrderDetail(int did) {
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "select * from orderDetails where did = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, did);
+            rs = pstmt.executeQuery();
+            rs.next();
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setDid(rs.getInt("did"));
+            orderDetail.setOid(rs.getInt("oid"));
+            orderDetail.setGid(rs.getInt("gid"));
+            orderDetail.setName(rs.getString("name"));
+            orderDetail.setNums(rs.getInt("nums"));
+            orderDetail.setPrice(rs.getDouble("price"));
+            orderDetail.setTotalPrice(rs.getDouble("totalPrice"));
+            orderDetail.setImage(rs.getString("image"));
+            orderDetail.setDescription(rs.getString("description"));
+            return orderDetail;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updateOrderDetailByDid(OrderDetail orderDetail) {
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "update orderdetails set name = ?, price = ?, totalPrice = ?, nums = ?, description = ? where did = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, orderDetail.getName());
+            pstmt.setDouble(2, orderDetail.getPrice());
+            pstmt.setDouble(3, orderDetail.getNums() * orderDetail.getPrice());
+            pstmt.setInt(4, orderDetail.getNums());
+            pstmt.setString(5, orderDetail.getDescription());
+            pstmt.setInt(6, orderDetail.getDid());
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(pstmt, conn);
+        }
         return false;
     }
 }

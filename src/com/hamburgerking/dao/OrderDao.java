@@ -27,8 +27,6 @@ public interface OrderDao {
 
     List<Order> searchOrder(String keyword, int start, int rows);
 
-    boolean delOneOrderById(int oid);
-
     int insertOrder(Order order);
 
     boolean insertOrderDetail(int oid, OrderDetail orderDetail);
@@ -44,4 +42,8 @@ public interface OrderDao {
     List<OrderDetail> searchOrderDetailByGoodName(String keyword, int start, int rows, int oid);
 
     boolean delOneOrderDetailById(int did);
+
+    OrderDetail findOneOrderDetail(int did);
+
+    boolean updateOrderDetailByDid(OrderDetail orderDetail);
 }

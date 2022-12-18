@@ -161,7 +161,7 @@
                                     <td>${orderDetail.price}</td>
                                     <td>${orderDetail.totalPrice}</td>
                                     <td>
-                                        <input type="submit" class="btn btn-sm btn-primary" value="编辑">
+                                        <a class="btn btn-sm btn-primary"  href="findOneOrderDetailServlet?did=${orderDetail.did}">编辑</a>
                                         <a class="btn btn-sm btn-danger" onclick="deleteGood(${orderDetail.did})">删除</a>
                                     </td>
                                 </tr>

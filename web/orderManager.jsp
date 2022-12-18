@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
 <html>
@@ -64,25 +64,25 @@
             }
         }
 
-        function deleteGood(oid){
-            if(confirm("您确认删除吗？")){
-                location.href="delOneOrderByIdServlet?oid=" + oid;
+        function deleteGood(oid) {
+            if (confirm("您确认删除吗？")) {
+                location.href = "delOneOrderByIdServlet?oid=" + oid;
             }
         }
 
-        function deleteSelected(){
-            if(confirm("您确认删除吗？")){ //如果没有选中就提交表单 会报空指针异常
+        function deleteSelected() {
+            if (confirm("您确认删除吗？")) { //如果没有选中就提交表单 会报空指针异常
                 //如果没有选中就不提交表单 , 判断是否有选中
                 var flag = false;
                 var cbs = document.getElementsByName("orderId");
-                for(var i = 0; i < cbs.length; i++){
-                    if(cbs[i].checked){
+                for (var i = 0; i < cbs.length; i++) {
+                    if (cbs[i].checked) {
                         flag = true;
                         break;
                     }
                 }
 
-                if(flag){
+                if (flag) {
                     //提交表单
                     document.getElementById("form").submit();
                 }
@@ -105,18 +105,29 @@
 
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="d-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">订单列表</h6>
-                    <form class="d-none d-md-flex ms-4" method="post" action="searchOrderByPageServlet">
-                        <input class="form-control border-0" type="search" placeholder="输入订单号查询" name="keyword">
-                        <input type="submit" class="btn btn-sm btn-primary" value="查询">
-                    </form>
+                        <h6 class="mb-0">订单列表</h6>
+                        <form class="d-none d-md-flex ms-4" method="post" action="searchOrderByPageServlet">
+                            <input class="form-control border-0" type="search" placeholder="输入订单号查询" name="keyword">
+                            <input type="submit" class="btn btn-sm btn-primary" value="查询">
+                        </form>
                     </div>
                     <c:if test="${resultInfo != null}">
-                        <div class="alert alert-success alert-dismissible align-items-center fade show" role="alert"
-                             style="width: 160px;height: 35px;padding: 5px 10px">
-                            <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding:9px 10px"></button>
-                        </div>
+                        <c:if test="${resultInfo.flag == true}">
+                            <div class="alert alert-success alert-dismissible align-items-center fade show" role="alert"
+                                 style="width: 160px;height: 35px;padding: 5px 10px">
+                                <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                        style="padding:9px 10px"></button>
+                            </div>
+                        </c:if>
+                        <c:if test="${resultInfo.flag == false}">
+                            <div class="alert alert-danger alert-dismissible align-items-center fade show" role="alert"
+                                 style="width: 160px;height: 35px;padding: 5px 10px">
+                                <i class="fa fa-exclamation-circle me-2"></i>${resultInfo.msg}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                        style="padding:9px 10px"></button>
+                            </div>
+                        </c:if>
                     </c:if>
                 </div>
                 <div class="table-responsive">
@@ -159,7 +170,8 @@
                                     </c:choose>
                                     <td>${order.totalPrice}</td>
                                     <td>
-                                        <a class="btn btn-sm btn-primary" href="searchOrderDetailByPageServlet?oid=${order.oid}">详情</a>
+                                        <a class="btn btn-sm btn-primary"
+                                           href="searchOrderDetailByPageServlet?oid=${order.oid}">详情</a>
                                         <a class="btn btn-sm btn-danger" onclick="deleteGood(${order.oid})">删除</a>
                                     </td>
                                 </tr>
@@ -173,7 +185,7 @@
                                class="btn btn-sm btn-primary"/>
                         <input type="button" name="back" value="反选" onclick="selectBack()"
                                class="btn btn-sm btn-primary"/>
-                        <a  class="btn btn-sm btn-danger" onclick="deleteSelected()" >删除选中</a>
+                        <a class="btn btn-sm btn-danger" onclick="deleteSelected()">删除选中</a>
                     </form>
                 </div>
             </div>
@@ -183,14 +195,15 @@
                     <%-- 当前页大于第一页就显示上一页按钮--%>
                     <c:if test="${page.currentPage>1}">
                         <li class="page-item">
-                            <a class="page-link" href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${page.currentPage-1}&rows=5"
+                            <a class="page-link"
+                               href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${page.currentPage-1}&rows=5"
                                aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
                     </c:if>
-                        <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
+                    <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
                     <c:forEach begin="1" end="${page.totalPage}" var="i">
                         <c:choose>
                             <c:when test="${page.currentPage == i}">
@@ -205,10 +218,11 @@
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                        <%-- 当前页小于总页数就显示下一页按钮--%>
+                    <%-- 当前页小于总页数就显示下一页按钮--%>
                     <c:if test="${page.currentPage<page.totalPage}">
                         <li class="page-item">
-                            <a class="page-link" href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${page.currentPage+1}&rows=5"
+                            <a class="page-link"
+                               href="searchOrderByPageServlet?keyword=${keyword}&currentPage=${page.currentPage+1}&rows=5"
                                aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
