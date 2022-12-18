@@ -30,6 +30,7 @@ public class CreateOrderServlet extends HttpServlet {
         OrderService orderService = new OrderServiceImpl();
         ResultInfo resultInfo = new ResultInfo();
         boolean shoppingIsSuccess = userService.shopping(uid, allGoodsTotalPrice);
+        resultInfo.setFlag(shoppingIsSuccess);
 
         if (shoppingIsSuccess) {
             resultInfo.setMsg("结算成功");
