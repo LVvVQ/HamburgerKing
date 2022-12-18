@@ -1,6 +1,7 @@
 package com.hamburgerking.servlet;
 
 import com.hamburgerking.bean.Good;
+import com.hamburgerking.bean.ResultInfo;
 import com.hamburgerking.service.GoodsService;
 import com.hamburgerking.service.impl.GoodsServiceImpl;
 import jakarta.servlet.ServletException;
@@ -55,14 +56,17 @@ public class UpdateGoodsServlet extends HttpServlet {
 
         //调用service方法  传入good对象
         GoodsService service = new GoodsServiceImpl();
-        String update_msg = ""; //提示消息
-        if(service.updateGoods(good)){
-            update_msg = "商品修改成功";
+        ResultInfo resultInfo = new ResultInfo();
+        boolean flag = service.updateGoods(good);
+        resultInfo.setFlag(flag);
+
+        if(flag){
+            resultInfo.setMsg("修改成功");
         }else{
-            update_msg = "商品修改失败";
+            resultInfo.setMsg("修改失败");
         }
         //将update_msg设置到request域
-        req.setAttribute("insert_msg",update_msg);
+        req.setAttribute("resultInfo",resultInfo);
 
         //有涉及到数据共享 采用请求转发到searchGoodServlet
         req.getRequestDispatcher("searchGoodsByPageServlet").forward(req,resp);
