@@ -66,4 +66,22 @@ public class UserDaoImpl implements UserDao {
         }
         return false;
     }
+
+    @Override
+    public boolean reduceBalance(int uid, double price) {
+
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "update users set balance = balance - ? where uid = ? and balance > ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setDouble(1, price);
+            pstmt.setInt(2, uid);
+            pstmt.setDouble(3, price);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

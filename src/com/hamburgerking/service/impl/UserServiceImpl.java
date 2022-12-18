@@ -17,4 +17,9 @@ public class UserServiceImpl implements UserService {
     public boolean addUser(User user) {
         return userDao.addUser(user);
     }
+
+    @Override
+    public boolean shopping(int uid, double price) {
+        return userDao.reduceBalance(uid, price);
+    }
 }

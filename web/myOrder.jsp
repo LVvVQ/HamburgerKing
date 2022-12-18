@@ -42,8 +42,10 @@
     <link href="static/css/style1.css" rel="stylesheet"/>
 
     <script type="text/javascript">
-        function delGood(gid){
-            location.href = "delGoodFromCart?gid=" + gid;
+        function payForOrder(oid) {
+            if (confirm("确认支付")) {
+                location.href = "payForOrderServlet?oid=" + oid;
+            }
         }
     </script>
 </head>
@@ -110,8 +112,7 @@
                     <li>
                         <a href="#">Shop</a>
                         <ul>
-                            <li><a href="addToCartServlet">Shopping Cart</a></li>
-                            <li><a href="checkMyOrderServlet">My Order</a></li>
+                            <li><a href="">Shopping Cart</a></li>
                         </ul>
                     </li>
 
@@ -159,7 +160,7 @@
                 <div class="col-lg-10 offset-lg-1">
                     <div class="hero-txt text-center white-color">
                         <!-- Title -->
-                        <h2 class="h2-xl">Shopping Cart</h2>
+                        <h2 class="h2-xl">My Order</h2>
                     </div>
                 </div>
             </div>
@@ -194,46 +195,53 @@
                         <table id="myTable">
                             <thead>
                             <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Price</th>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Total Price</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">Delete</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Operation</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            <c:forEach items="${sessionScope.shopCart}" var="orderDetail">
+                            <c:forEach items="${page.list}" var="order">
                                 <!-- CART ITEM #1 -->
                                 <tr>
                                     <td data-label="Product" class="product-name">
-                                        <!-- Preview -->
-                                        <div class="cart-product-img">
-                                            <img
-                                                    src="${orderDetail.image}"
-                                                    alt="商品图片"
-                                            />
-                                        </div>
-
                                         <!-- Description -->
                                         <div class="cart-product-desc">
-                                            <h5 class="h5-sm">${orderDetail.name}</h5>
-                                            <p class="p-sm">${orderDetail.description}</p>
+                                            <h5 class="h5-sm">${order.oid}</h5>
                                         </div>
                                     </td>
 
                                     <td data-label="Price" class="product-price">
-                                        <h5 class="h5-md">$${orderDetail.price}</h5>
+                                        <h5 class="h5-md">$${order.totalPrice}</h5>
                                     </td>
                                     <td data-label="Quantity" class="product-qty">
-                                        <h5 class="h5-md">${orderDetail.nums}</h5>
+                                        <h5 class="h5-md">${order.nums}</h5>
                                     </td>
-                                    <td data-label="Total" class="product-price-total">
-                                        <h5 class="h5-md">${orderDetail.totalPrice}</h5>
+                                    <td data-label="Quantity" class="product-qty">
+                                        <h5 class="h5-md">${order.date}</h5>
                                     </td>
-                                    <td data-label="Delete" class="td-trash">
-                                        <i class="far fa-trash-alt" onclick="delGood(${orderDetail.gid})"></i>
-                                    </td>
+                                    <c:choose>
+                                        <c:when test="${order.status == 0}">
+                                            <td data-label="Total" class="product-price-total">
+                                                <h5>未完成</h5>
+                                            </td>
+                                            <td data-label="Delete" class="td-trash">
+                                                <a href="javascript:void(0)" onclick="payForOrder(${order.oid})"
+                                                   class="btn btn-md btn-salmon tra-salmon-hover"
+                                                >去支付</a
+                                                >
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${order.status == 1}">
+                                            <td data-label="Total" class="product-price-total">
+                                                <h5>已完成</h5>
+                                            </td>
+                                        </c:when>
+                                    </c:choose>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -242,43 +250,56 @@
                 </div>
             </div>
             <!-- END CART TABLE -->
-
-            <!-- CHECKOUT -->
-            <div class="col-lg-4">
-                <div class="cart-checkout bg-lightgrey">
-                    <!-- Title -->
-                    <h5 class="h5-lg">Cart Total</h5>
-
-                    <!-- Table -->
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>Subtotal</td>
-                            <td></td>
-                            <td class="text-right">$${sessionScope.allGoodsTotalPrice}</td>
-                        </tr>
-                        <tr class="last-tr">
-                            <td>Total</td>
-                            <td></td>
-                            <td class="text-right">$${sessionScope.allGoodsTotalPrice}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Button -->
-                    <a href="createOrderServlet" class="btn btn-md btn-salmon tra-salmon-hover"
-                    >Proceed To Checkout</a
-                    >
-                </div>
-            </div>
-            <!-- END CHECKOUT -->
         </div>
-        <!-- END CART CHECKOUT -->
-    </section>
+    </section><!-- END CART CHECKOUT -->
 </div>
 <!-- End container -->
 </section>
 <!-- END CART PAGE -->
+
+<!-- PAGE PAGINATION
+      ============================================= -->
+<div class="bg-color-01 page-pagination division row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+
+                        <c:if test="${page.currentPage > 1}">
+                            <li class="page-item"><a class="page-link"
+                                                     href="checkMyOrderServlet?currentPage=${page.currentPage - 1}&rows=5">&laquo;</a>
+                            </li>
+                        </c:if>
+
+                        <c:forEach begin="1" end="${page.totalPage}" var="i">
+                            <c:if test="${page.currentPage == i}">
+                                <li class="page-item active"><a class="page-link"
+                                                                href="checkMyOrderServlet?currentPage=${i}&rows=5">${i}</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${page.currentPage != i}">
+                                <li class="page-item "><a class="page-link"
+                                                          href="checkMyOrderServlet?currentPage=${i}&rows=5">${i}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+
+                        <c:if test="${page.currentPage < page.totalPage}">
+                            <li class="page-item"><a class="page-link"
+                                                     href="checkMyOrderServlet?currentPage=${page.currentPage + 1}&rows=5">&raquo;</a>
+                            </li>
+                        </c:if>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+</div>
+<!-- END PAGE PAGINATION -->
 
 <!-- BANNER-3
       ============================================= -->
