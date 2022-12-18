@@ -1,6 +1,7 @@
 package com.hamburgerking.service.impl;
 
 import com.hamburgerking.bean.Comment;
+import com.hamburgerking.bean.Good;
 import com.hamburgerking.bean.Order;
 import com.hamburgerking.bean.Page;
 import com.hamburgerking.dao.CommentsDAO;
@@ -75,5 +76,14 @@ public class CommentsServiceImpl implements CommentsService {
         if (commentsDAO.checkGoodOfComment(Integer.parseInt(gid))==0)
             return true;
         return commentsDAO.deleteGoodOfComments(Integer.parseInt(gid));
+    }
+
+    /**
+     * 管理员插入评论
+     * @param comment 评论数据
+     * @return 判断是否插入成功
+     */
+    public boolean ManagerInsertComment(Comment comment) {
+        return commentsDAO.ManagerInsertComment(comment);
     }
 }

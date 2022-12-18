@@ -23,17 +23,17 @@ public class CommentsDAOImpl implements CommentsDAO {
     //老板插入数据
     public boolean ManagerInsertComment(Comment comment){//老板插入数据
         boolean result=false;
-        Date date =new Date();
-        SimpleDateFormat f=new SimpleDateFormat("yy-MM-dd HH:mm");//
-        comment.setDate(f.format(date));
-        sql="insert into comment(gid,date,content,mid)values(?,?,?,?)";
+        Date datea =new Date();
+        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm");//
+        comment.setDate(f.format(datea));
+        sql="insert into comments (gid,content,mid,date)values(?,?,?,?)";
         try {
             conn=JDBCUtils.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setInt(1, comment.getGid());
-            pstmt.setString(2, comment.getDate());
-            pstmt.setString(3, comment.getContent());
-            pstmt.setInt(4,comment.getMid());
+            pstmt.setString(2, comment.getContent());
+            pstmt.setInt(3,comment.getMid());
+            pstmt.setString(4,comment.getDate());
             System.out.print(sql);
             int flag=pstmt.executeUpdate();
             if(flag>0) {
@@ -86,7 +86,7 @@ public class CommentsDAOImpl implements CommentsDAO {
         }catch (SQLException e){
             System.out.println("deleteComments发生错误，错误原因: " + e.getMessage());
         }finally {
-            JDBCUtils.close(stmt,conn);
+            JDBCUtils.close(pstmt,conn);
         }
         return false;
     }
@@ -107,7 +107,7 @@ public class CommentsDAOImpl implements CommentsDAO {
         }catch (SQLException e){
             System.out.println("deleteComments发生错误，错误原因: " + e.getMessage());
         }finally {
-            JDBCUtils.close(stmt,conn);
+            JDBCUtils.close(pstmt,conn);
         }
         return false;
     }

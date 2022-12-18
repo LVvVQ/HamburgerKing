@@ -144,7 +144,7 @@
                         <!--大于第一页 显示返回首页-->
                         <c:if test="${page.currentPage != 1 && page.currentPage > 1}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=1&rows=5"
+                                <a class="page-link" href="searchCommentServlet?currentPage=1&rows=5"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
@@ -154,7 +154,7 @@
                             <%-- 当前页大于第一页就显示上一页按钮--%>
                         <c:if test="${page.currentPage>1}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage-1}&rows=5"
+                                <a class="page-link" href="searchCommentServlet?currentPage=${page.currentPage-1}&rows=5"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&lt;</span>
                                     <span class="sr-only">Previous</span>
@@ -165,12 +165,12 @@
                         <c:forEach begin="1" end="${page.totalPage}" var="i">
                             <c:if test="${page.currentPage == i}">
                                 <li class="page-item active"><a class="page-link"
-                                                                href="searchGoodsByPageServlet?currentPage=${i}&rows=5">${i}</a>
+                                                                href="searchCommentServlet?currentPage=${i}&rows=5">${i}</a>
                                 </li>
                             </c:if>
                             <c:if test="${page.currentPage != i}" >
                                 <li class="page-item"><a class="page-link"
-                                                         href="searchGoodsByPageServlet?currentPage=${i}&rows=5">${i}</a>
+                                                         href="searchCommentServlet?currentPage=${i}&rows=5">${i}</a>
                                 </li>
                             </c:if>
 
@@ -178,7 +178,7 @@
                             <%-- 当前页小于总页数就显示下一页按钮--%>
                         <c:if test="${page.currentPage<page.totalPage}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage+1}&rows=5"
+                                <a class="page-link" href="searchCommentServlet?currentPage=${page.currentPage+1}&rows=5"
                                    aria-label="Next">
                                     <span aria-hidden="true">&gt;</span>
                                     <span class="sr-only">Next</span>
@@ -188,7 +188,7 @@
                             <%-- 页面不是最后一页 跳转到最后一页--%>
                         <c:if test="${page.currentPage != page.totalPage && page.currentPage<page.totalPage}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.totalPage}&rows=5"
+                                <a class="page-link" href="searchCommentServlet?currentPage=${page.totalPage}&rows=5"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Previous</span>
@@ -204,7 +204,7 @@
                         <!--大于第一页 显示返回首页-->
                         <c:if test="${page.currentPage != 1 && page.currentPage > 1}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=1&rows=5&keyWord=${keyWord}"
+                                <a class="page-link" href="searchCommentServlet?currentPage=1&rows=5&keyWord=${keyWord}"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
@@ -214,7 +214,7 @@
                             <%-- 当前页大于第一页就显示上一页按钮--%>
                         <c:if test="${page.currentPage>1}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage-1}&rows=5&keyWord=${keyWord}"
+                                <a class="page-link" href="searchCommentServlet?currentPage=${page.currentPage-1}&rows=5&keyWord=${keyWord}"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&lt;</span>
                                     <span class="sr-only">Previous</span>
@@ -226,12 +226,12 @@
                             <c:choose>
                                 <c:when test="${page.currentPage == i}">
                                     <li class="page-item active"><a class="page-link"
-                                                                    href="searchGoodsByPageServlet?currentPage=${i}&rows=5&keyWord=${keyWord}">${i}</a>
+                                                                    href="searchCommentServlet?currentPage=${i}&rows=5&keyWord=${keyWord}">${i}</a>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="page-item"><a class="page-link"
-                                                             href="searchGoodsByPageServlet?currentPage=${i}&rows=5&keyWord=${keyWord}">${i}</a>
+                                                             href="searchCommentServlet?currentPage=${i}&rows=5&keyWord=${keyWord}">${i}</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>
@@ -239,7 +239,7 @@
                             <%-- 当前页小于总页数就显示下一页按钮--%>
                         <c:if test="${page.currentPage<page.totalPage}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage+1}&rows=5&keyWord=${keyWord}"
+                                <a class="page-link" href="searchCommentServlet?currentPage=${page.currentPage+1}&rows=5&keyWord=${keyWord}"
                                    aria-label="Next">
                                     <span aria-hidden="true">&gt;</span>
                                     <span class="sr-only">Next</span>
@@ -249,7 +249,7 @@
                             <%-- 页面不是最后一页 跳转到最后一页--%>
                         <c:if test="${page.currentPage != page.totalPage && page.currentPage<page.totalPage}">
                             <li class="page-item">
-                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.totalPage}&rows=5&keyWord=${keyWord}"
+                                <a class="page-link" href="searchCommentServlet?currentPage=${page.totalPage}&rows=5&keyWord=${keyWord}"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Previous</span>

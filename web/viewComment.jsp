@@ -127,7 +127,7 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded p-4">
                 <div class="d-flex align-items-center mb-4">
-                    <h6 class="mb-0">商品名</h6>
+                    <h6 class="mb-0">${good.gname}商品名</h6>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <img class="rounded-circle" src="static/picture/burger-11.jpg" style="width: 50px; height: 50px;">
                 </div>
@@ -209,7 +209,37 @@
                 </c:if>
             </ul>
         </div>
+        <%--<form action="commenthandle.jsp?action=add" method="post">
+            <input type="hidden" name="bookid" value="${book.id }"><br>
+            <input type="hidden" name="username" value="<%=session.getAttribute("username") %>"><br>
+            <input type="hidden" name="ip" value="<%=request.getRemoteAddr() %>"><br>
+            <textarea rows="4" cols="50" name="comment"></textarea><br>
+            <input type="submit" value="评论">
+        </form>--%>
+                    <h6 class="mb-4">添加评论</h6>
+                    <form action="insertCommentsServlet" method="post">
+                        <input type="hidden" name="gid" value="${gid}"><br>
+                        <%--<input type="hidden" name="mid" value="${manager.mid}">--%>
+                        <div class="form-floating">
+                                <textarea class="form-control" placeholder="评论内容"
+                                          id="description" name="content"
+                                          style="height: 150px;width: 400px"></textarea>
+                            <label for="description">评论内容</label>
+                        </div>
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="添加评论"></input>
+                    </form>
+                </div>
+            </div>
+            <!-- Recent Sales End -->
+        </div>
+        <!-- Content End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
+</div>
         <!-- Recent Sales End -->
     </div>
     <!-- Content End -->
