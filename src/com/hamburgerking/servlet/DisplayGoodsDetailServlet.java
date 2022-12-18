@@ -57,7 +57,7 @@ public class DisplayGoodsDetailServlet extends HttpServlet {
         req.setAttribute("keyWord",keyWord);
 
         //返回到admin.jsp页面
-        req.getRequestDispatcher("commentManager.jsp").forward(req,resp);
+        //req.getRequestDispatcher("commentManager.jsp").forward(req,resp);
         //返回到GoodsDetail.jsp
         req.getRequestDispatcher("goodsDetail.jsp").forward(req,resp);
 
