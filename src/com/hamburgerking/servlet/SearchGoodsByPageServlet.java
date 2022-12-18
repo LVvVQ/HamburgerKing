@@ -42,7 +42,7 @@ public class SearchGoodsByPageServlet extends HttpServlet {
         GoodsService service = new GoodsServiceImpl();
         Page<Good> page = service.findGoodsByPage(currentPage,rows,keyWord);
 
-        boolean flag = page.getList().size() == 0;
+        boolean flag = page.getList().size() == 0  && !("".equals(keyWord));
         ResultInfo resultInfo = new ResultInfo();
         resultInfo.setFlag(flag);
         if(flag){

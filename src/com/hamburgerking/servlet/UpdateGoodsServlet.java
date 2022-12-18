@@ -32,25 +32,32 @@ public class UpdateGoodsServlet extends HttpServlet {
         String price = req.getParameter("price");
         String stock = req.getParameter("stock");
         String description = req.getParameter("description");
+        String checkImage = req.getParameter("checkImage");
+
 
         //获取文件Part对象
         Part part = req.getPart("image");
         String filename = part.getSubmittedFileName();
 
-
         //设置UUID
         String uuid = UUID.randomUUID().toString();
-        String uuidFilename = uuid + filename;
+        Good good = new Good();
+        String uuidFilename = "";
+        if(filename == null || "".equals(filename)){
+            uuidFilename = checkImage;
+            good.setImage(uuidFilename);
+        }else {
+            uuidFilename = uuid + filename;
+            //上传文件到指定目录
+            part.write(OutFilePath + "\\" + uuidFilename); //上传到out目录下
+            good.setImage("upload\\" + uuidFilename);
+        }
 
-        //上传文件到指定目录
-        part.write(OutFilePath + "\\" + uuidFilename); //上传到out目录下
 
         //封装对象
-        Good good = new Good();
         good.setGid(Integer.parseInt(gid));
         good.setGname(gname);
         good.setPrice(Double.parseDouble(price));
-        good.setImage("upload\\" + uuidFilename);
         good.setStock(Integer.parseInt(stock));
         good.setDescription(description);
 

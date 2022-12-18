@@ -61,6 +61,7 @@
                                placeholder="商品价格" step="0.01" style="width: 400px">
                         <label for="price">商品价格</label>
                     </div>
+                    <input type="hidden" name="checkImage" value="${good.image}">
                     <img src="${good.image}" alt="商品图" width="80px" height="70px">
                     <div class="mb-3">
                         <input style="width: 400px" class="form-control" type="file" id="formFile" name="image" value="${good.image}">
