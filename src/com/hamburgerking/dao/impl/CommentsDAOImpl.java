@@ -24,9 +24,9 @@ public class CommentsDAOImpl implements CommentsDAO {
     public boolean ManagerInsertComment(Comment comment){//老板插入数据
         boolean result=false;
         Date date =new Date();
-        SimpleDateFormat f=new SimpleDateFormat("yy-MM-dd HH:mm");//
+        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm");//
         comment.setDate(f.format(date));
-        sql="insert into comment(gid,date,content,mid)values(?,?,?,?)";
+        sql="insert into comments(gid,date,content,mid)values(?,?,?,?)";
         try {
             conn=JDBCUtils.getConnection();
             pstmt=conn.prepareStatement(sql);
@@ -49,12 +49,13 @@ public class CommentsDAOImpl implements CommentsDAO {
     public boolean UserInsertComment(Comment comment){//用户插入数据
         boolean result=false;
         Date date =new Date();
-        SimpleDateFormat f=new SimpleDateFormat("yy-MM-dd HH:mm");//
+        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm");//
         comment.setDate(f.format(date));
-        sql="insert into comment(gid,date,content,uid)values(?,?,?,?)";
+        sql="insert into comments(gid,date,content,uid)values(?,?,?,?)";
         try {
             conn=JDBCUtils.getConnection();
             System.out.println("用户插入");
+            System.out.println("comment"+comment.getUid());
             pstmt=conn.prepareStatement(sql);
             pstmt.setInt(1, comment.getGid());
             pstmt.setString(2, comment.getDate());

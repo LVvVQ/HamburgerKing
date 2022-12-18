@@ -18,4 +18,10 @@ public interface CommentsService {
      * @return 判断是否插入成功
      */
     public boolean ManagerInsertComment(Comment comment);
+    /**
+     * 用户插入评论
+     * @param comment 评论数据
+     * @return 判断是否插入成功
+     */
+    public boolean UserInsertComment(Comment comment);
 }

@@ -26,4 +26,5 @@ public interface CommentsDAO {
     public List<Comment> findByPage(int gid,int start, int rows);
     public int findTotalCount(int gid);
     public boolean ManagerInsertComment(Comment comment);
+    public boolean UserInsertComment(Comment comment);
 }
