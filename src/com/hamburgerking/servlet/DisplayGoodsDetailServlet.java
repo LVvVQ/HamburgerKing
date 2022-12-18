@@ -1,8 +1,11 @@
 package com.hamburgerking.servlet;
 
+import com.hamburgerking.bean.Comment;
 import com.hamburgerking.bean.Good;
 import com.hamburgerking.bean.Page;
+import com.hamburgerking.service.CommentsService;
 import com.hamburgerking.service.GoodsService;
+import com.hamburgerking.service.impl.CommentsServiceImpl;
 import com.hamburgerking.service.impl.GoodsServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,36 +32,28 @@ public class DisplayGoodsDetailServlet extends HttpServlet {
         //将good存入request域
         req.setAttribute("good",good);
 
+        String _currentPage = req.getParameter("currentPage");
+        String _rows = req.getParameter("rows");
 
-        String currentPage = req.getParameter("currentPage");//当前页码
-        String rows = req.getParameter("rows");//每页行数
-        String keyWord = req.getParameter("keyWord");//查询关键字
-
-        //查询内容为空 查询全部记录
-        if(keyWord == null){
-            keyWord = "";
+        //如果current、rows为空, 那就初始化为第一页和一页显示5行记录, 避免下面从字符串转为int时候出现空指针异常
+        if (_currentPage == null || "".equals(_currentPage)) {
+            _currentPage = "1";
         }
 
-        //如果current、rows为空, 那就初始化为第一页和一页显示5行记录
-        if (currentPage == null || "".equals(currentPage) ) {
-            currentPage = "1";
-        }
-        if (rows == null || "".equals(rows)) {
-            rows = "5";
+        if (_rows == null || "".equals(_rows)) {
+            _rows = "5";
         }
 
-        //调用service查询
-        GoodsService commentservice = new GoodsServiceImpl();
-        Page<Good> page = commentservice.findGoodsByPage(currentPage,rows,keyWord);
+        //将currentPage、rows从字符串转为int
+        int currentPage = Integer.parseInt(_currentPage);
+        int rows = Integer.parseInt(_rows);
+        //gid= String.valueOf(Integer.parseInt(gid));
+        CommentsService Commentsservice=new CommentsServiceImpl();
+        Page<Comment> page = Commentsservice.findOrderByPage(Integer.parseInt(gid),currentPage, rows);
 
-        //将Page存入request域
-        req.setAttribute("page",page);
-        //将keyWord存入request域
-        req.setAttribute("keyWord",keyWord);
-
-        //返回到admin.jsp页面
-        //req.getRequestDispatcher("commentManager.jsp").forward(req,resp);
-        //返回到GoodsDetail.jsp
+        //将page对象传入到request域中
+        req.setAttribute("page", page);
+        req.setAttribute("gid", gid);
         req.getRequestDispatcher("goodsDetail.jsp").forward(req,resp);
 
 

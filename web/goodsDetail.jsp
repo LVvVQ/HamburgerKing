@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
@@ -193,133 +194,104 @@
                     <div class="comments-wrapper">
 
                         <!-- Title -->
-                        <h5 class="h5-lg">4 Comments</h5>
-
-
-                        <!-- COMMENT #1 -->
-                        <div class="media">
-
-                            <!-- Comment-1 Avatar -->
-                            <img class="mr-3" src="static/picture/post-author-1.jpg" alt="comment-avatar">
-
-                            <div class="media-body">
-
-                                <!-- Comment-1 Meta -->
-                                <div class="comment-meta">
-                                    <h6 class="h6-md mt-0">Thomas</h6>
-                                    <span class="comment-date">5 days ago&#8194;- </span>
-                                    <span class="btn-reply"><a href="#leave-comment" class="internal-link"><i class="fas fa-reply"></i> Reply</a></span>
-                                </div>
-
-                                <!-- Comment-1 Text -->
-                                <p class="mb-40">Etiam sapien sem magna at vitae pulvinar congue augue egestas pretium neque viverra
-                                    suscipit egestas magna porta ratione, mollis risus lectus porta rutrum arcu aenean primis in augue
-                                    luctus neque purus ipsum neque dolor primis purus efficitur ipsum primis in cubilia laoreet augue
-                                </p>
-
-                                <hr>
-
-                                <!-- COMMENT #2 -->
-                                <div class="media">
-
-                                    <!-- Comment-2 Avatar -->
-                                    <a href="#" class="pr-3">
-                                        <img src="static/picture/post-author-2.jpg" alt="comment-avatar">
-                                    </a>
-
-                                    <div class="media-body">
-
-                                        <!-- Comment-2 Meta -->
-                                        <div class="comment-meta">
-                                            <h6 class="h6-md mt-0">David Clark</h6>
-                                            <span class="comment-date">6 days ago&#8194;- </span>
-                                            <span class="btn-reply"><a href="#leave-comment" class="internal-link"><i class="fas fa-reply"></i> Reply</a></span>
-                                        </div>
-
-                                        <!-- Comment-2 Text -->
-                                        <p>Etiam sapien sem magna at vitae pulvinar congue augue egestas pretium neque and viverra
-                                            suscipit porta ratione, mollis risus lectus porta aliquet lorem purus mollis
-                                        </p>
-
-                                    </div>
-                                </div>	<!-- END COMMENT #2 -->
-
-                            </div>
-                        </div>	<!-- END COMMENT #1 -->
-
-
-                        <hr>
-
-
+                        <h5 class="h5-lg">Comments</h5>
                         <!-- COMMENT #3 -->
                         <div class="media">
-
+                            <table>
+                            <c:forEach items="${page.list}" var="comment">
                             <!-- Comment-4 Avatar -->
-                            <img class="mr-3" src="static/picture/post-author-3.jpg" alt="comment-avatar">
+                                <tr>
+                                    <td>
+                                <c:if test="${comment.avatar2!=null}">
+                            <img class="mr-3" src="${comment.avatar2}"width="50" height="50" <%--人物头像--%> <%--alt="comment-avatar"--%>>
+                            </c:if>
+                                <c:if test="${comment.avatar!=null}">
+                                <img class="mr-3" src="${comment.avatar}" width="50" height="50" <%--alt="comment-avatar"--%>>
+                                </c:if>
+                                    </td>
+                                </tr>
+                                <%--<div class="media-body">--%>
 
-                            <div class="media-body">
-
+                                <%--<c:forEach items="${page.list}" var="comment">
+                                    <tr>
+                                            &lt;%&ndash;全选&ndash;%&gt;
+                                        <td style="text-align: center"><input class="form-check-input" type="checkbox" name="commentId" value="${comment.cid}"></td>
+                                        <td>${comment.username}${comment.managername}</td>
+                                        <td>${comment.date}</td>
+                                        <td>${comment.content}</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-danger" href="javascript:deleteComment(${comment.cid})">删除</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>--%>
                                 <!-- Comment-4 Meta -->
+                                <tr>
+                                    <td>
                                 <div class="comment-meta">
-                                    <h6 class="h6-md mt-0">Jasmine</h6>
-                                    <span class="comment-date">13 days ago&#8194;- </span>
-                                    <span class="btn-reply"><a href="#leave-comment" class="internal-link"><i class="fas fa-reply"></i> Reply</a></span>
+                                    <h6 class="h6-md mt-0">${comment.username}${comment.managername}<%--用户名--%></h6>
+                                    <span class="comment-date">${comment.date}<%--评论时间--%> </span>
+                                   <%-- <span class="btn-reply"><a href="#leave-comment" class="internal-link"><i class="fas fa-reply"></i> Reply</a></span>--%>
                                 </div>
-
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                 <!-- Comment-4 Text -->
-                                <p>Porta ratione, mollis risus lectus porta rutrum arcu aenean primis in augue luctus neque purus
-                                    ipsum neque dolor primis libero tempus, tempor posuere ligula varius impedit enim tempor vitae
-                                    pulvinar at congue augue egestas. Praesent aliquet lorem purus, quis mollis nisi laoreet
+                                <p><%--评论内容--%>${comment.content}
                                 </p>
 
                             </div>
+                        </td>
+                        </tr>
                         </div>	<!-- END COMMENT #3 -->
-
-
+                    </table>
                         <hr>
-
-
-                        <!-- COMMENT #4 -->
-                        <div class="media">
-
-                            <!-- Comment-4 Avatar -->
-                            <img class="mr-3" src="static/picture/post-author-4.jpg" alt="comment-avatar">
-
-                            <div class="media-body">
-
-                                <!-- Comment-4 Meta -->
-                                <div class="comment-meta">
-                                    <h6 class="h6-md mt-0">Rady Smith</h6>
-                                    <span class="comment-date">42 days ago&#8194;- </span>
-                                    <span class="btn-reply"><a href="#leave-comment" class="internal-link"><i class="fas fa-reply"></i> Reply</a></span>
-                                </div>
-
-
-                            </div>
-                        </div>	<!-- END COMMENT #4 -->
-
-
-                        <hr>
-
-
+                        </c:forEach>
+                        <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <ul class="pagination">
+                                <%-- 当前页大于第一页就显示上一页按钮--%>
+                                <c:if test="${page.currentPage>1}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="displayGoodsDetailServlet?gid=${gid}&currentPage=${page.currentPage-1}&rows=5"
+                                           aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
+                                <c:forEach begin="1" end="${page.totalPage}" var="i">
+                                    <c:choose>
+                                        <c:when test="${page.currentPage == i}">
+                                            <li class="page-item active"><a class="page-link"
+                                                                            href="displayGoodsDetailServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item"><a class="page-link"
+                                                                     href="displayGoodsDetailServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <%-- 当前页小于总页数就显示下一页按钮--%>
+                                <c:if test="${page.currentPage<page.totalPage}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="displayGoodsDetailServlet?gid=${gid}&currentPage=${page.currentPage+1}&rows=5"
+                                           aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </div>
                         <!-- COMMENT FORM -->
                         <div id="leave-comment">
 
                             <!-- Title -->
                             <h5 class="h5-lg">填写评论</h5>
-                            <%--h6 class="mb-4">添加评论</h6>
-                            <form action="insertCommentsServlet" method="post">
-                                <input type="hidden" name="gid" value="${gid}"><br>
-                                &lt;%&ndash;<input type="hidden" name="mid" value="${manager.mid}">&ndash;%&gt;
-                                <div class="form-floating">
-                                <textarea class="form-control" placeholder="评论内容"
-                                          id="description" name="content"
-                                          style="height: 150px;width: 400px"></textarea>
-                                    <label for="description">评论内容</label>
-                                </div>
-                                <br />
-                                <input type="submit" class="btn btn-primary" value="添加评论"></input>
-                            </form>--%>
 
                             <form action="insertUserCommentsServlet" method="post" <%--class="row comment-form"--%> >
                                 <input type="hidden" name="gid" value="${good.gid}"><br>
@@ -344,6 +316,7 @@
 
                     </div>
                 </div>	<!-- END COMMENTS WRAPPER -->
+
 
 
             </div>     <!-- End row -->
