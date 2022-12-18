@@ -23,6 +23,8 @@ public class DeleteCommentsServlet extends HttpServlet  {
         service.deleteComments(commentIds);
 
         //跳转至searchGoodServlet查询所有商品
+        //findOneCommentServlet
+        //req.getRequestDispatcher("findOneCommentServlet").forward(req,resp);
         req.getRequestDispatcher("searchCommentServlet").forward(req,resp);
     }
 

@@ -2,7 +2,9 @@ package com.hamburgerking.dao;
 
 import com.hamburgerking.bean.Comment;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public interface CommentsDAO {
@@ -12,4 +14,15 @@ public interface CommentsDAO {
     public boolean deleteComments(int cid);
     public boolean deleteGoodOfComments(int gid);
     public int checkGoodOfComment(int gid);
+
+
+
+    /**
+     * 分页查询每页记录
+     * @param start
+     * @param rows
+     * @return
+     */
+    public List<Comment> findByPage(int gid,int start, int rows);
+    public int findTotalCount(int gid);
 }

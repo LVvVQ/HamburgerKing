@@ -1,3 +1,5 @@
+<%@ page import="com.hamburgerking.bean.Comment" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -88,14 +90,13 @@
                 if(confirm("您确认删除吗？")){ //如果没有选中就提交表单 会报空指针异常
                     //如果没有选中就不提交表单 , 判断是否有选中
                     var flag = false;
-                    var cbs = document.getElementsByName("goodId");
+                    var cbs = document.getElementsByName("commentId");
                     for(var i = 0; i < cbs.length; i++){
                         if(cbs[i].checked){
                             flag = true;
                             break;
                         }
                     }
-
                     if(flag){
                         //提交表单
                         document.getElementById("form").submit();
@@ -106,7 +107,15 @@
         }
     </script>
 </head>
+<%
 
+    /*ArrayList<Good> allGoods = (ArrayList<Good>) request.getAttribute("goods");
+    request.setCharacterEncoding("UTF-8");
+    request.setAttribute("allGoods",allGoods);*/
+    ArrayList<Comment> allComments=(ArrayList<Comment>) request.getAttribute("comments");
+    request.setCharacterEncoding("UTF-8");
+    request.setAttribute("allComments",allComments);
+%>
 <body>
 <div class="container-fluid position-relative bg-white d-flex p-0">
     <jsp:include page="sidebar.jsp" />
@@ -116,14 +125,14 @@
         <jsp:include page="navbar.jsp" />
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded p-4">
+            <div class="bg-light rounded p-4">
                 <div class="d-flex align-items-center mb-4">
                     <h6 class="mb-0">商品名</h6>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <img class="rounded-circle" src="static/picture/burger-11.jpg" style="width: 50px; height: 50px;">
                 </div>
                 <div class="table-responsive"><%--新增表单--%>
-                    <form method="post" action="">
+                    <form method="post" action="deleteCommentsServlet" id="form">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                             <tr class="text-dark">
@@ -135,7 +144,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${comments}" var="comment">
+                            <c:forEach items="${page.list}" var="comment">
                             <tr>
                                 <%--全选--%>
                                 <td style="text-align: center"><input class="form-check-input" type="checkbox" name="commentId" value="${comment.cid}"></td>
@@ -149,6 +158,7 @@
                             </c:forEach>
                             </tbody>
                         </table>
+                        <br/>
                         <input type="button" name = "all" value = "全选"    onclick="selectAll()" class="btn btn-sm btn-primary"/>
                         <input type="button" name = "none" value = "全不选" onclick="selectNone()" class="btn btn-sm btn-primary"/>
                         <input type="button" name = "back" value = "反选"   onclick="selectBack()" class="btn btn-sm btn-primary"/>
@@ -157,6 +167,49 @@
                 </div>
             </div>
         </div>
+        <br/>
+
+        <div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <ul class="pagination">
+                <%-- 当前页大于第一页就显示上一页按钮--%>
+                <c:if test="${page.currentPage>1}">
+                    <li class="page-item">
+                        <a class="page-link" href="findOneCommentServlet?gid=${gid}&currentPage=${page.currentPage-1}&rows=5"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                </c:if>
+                <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
+                <c:forEach begin="1" end="${page.totalPage}" var="i">
+                    <c:choose>
+                        <c:when test="${page.currentPage == i}">
+                            <li class="page-item active"><a class="page-link"
+                                                            href="findOneCommentServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link"
+                                                     href="findOneCommentServlet?gid=${gid}&currentPage=${i}&rows=5">${i}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <%-- 当前页小于总页数就显示下一页按钮--%>
+                <c:if test="${page.currentPage<page.totalPage}">
+                    <li class="page-item">
+                        <a class="page-link" href="findOneCommentServlet?gid=${gid}&currentPage=${page.currentPage+1}&rows=5"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+    </div>
         <!-- Recent Sales End -->
     </div>
     <!-- Content End -->

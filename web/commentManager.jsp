@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -93,7 +94,7 @@
                 <div class="d-flex align-items-center mb-4">
                     <h6 class="mb-0">商品列表</h6>
                     <form class="d-none d-md-flex ms-4" method="post" action="searchCommentServlet">
-                        <input class="form-control border-0" type="search" placeholder="输入商品名查询" name="searchGoodName">
+                        <input class="form-control border-0" type="search" placeholder="输入商品名查询" name="keyWord">
                         <input type="submit" class="btn btn-sm btn-primary" value="查询">
                     </form>
                 </div>
@@ -113,7 +114,7 @@
 
                             <tbody>
 
-                            <c:forEach items="${allGoods}" var="good">
+                            <c:forEach items="${page.list}" var="good">
                                 <tr>
 
                                     <td>${good.gname}</td>
@@ -135,6 +136,129 @@
                 </div>
 
             </div>
+            <!--如果keyWord为空 查询所有商品-->
+            <br>
+            <c:if test="${keyWord == null}">
+                <div>
+                    <ul class="pagination">
+                        <!--大于第一页 显示返回首页-->
+                        <c:if test="${page.currentPage != 1 && page.currentPage > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=1&rows=5"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        </c:if>
+                            <%-- 当前页大于第一页就显示上一页按钮--%>
+                        <c:if test="${page.currentPage>1}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage-1}&rows=5"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&lt;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        </c:if>
+                            <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
+                        <c:forEach begin="1" end="${page.totalPage}" var="i">
+                            <c:if test="${page.currentPage == i}">
+                                <li class="page-item active"><a class="page-link"
+                                                                href="searchGoodsByPageServlet?currentPage=${i}&rows=5">${i}</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${page.currentPage != i}" >
+                                <li class="page-item"><a class="page-link"
+                                                         href="searchGoodsByPageServlet?currentPage=${i}&rows=5">${i}</a>
+                                </li>
+                            </c:if>
+
+                        </c:forEach>
+                            <%-- 当前页小于总页数就显示下一页按钮--%>
+                        <c:if test="${page.currentPage<page.totalPage}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage+1}&rows=5"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&gt;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </c:if>
+                            <%-- 页面不是最后一页 跳转到最后一页--%>
+                        <c:if test="${page.currentPage != page.totalPage && page.currentPage<page.totalPage}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.totalPage}&rows=5"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </div>
+            </c:if>
+            <c:if test="${keyWord != null}">
+                <div>
+                    <ul class="pagination">
+                        <!--大于第一页 显示返回首页-->
+                        <c:if test="${page.currentPage != 1 && page.currentPage > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=1&rows=5&keyWord=${keyWord}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        </c:if>
+                            <%-- 当前页大于第一页就显示上一页按钮--%>
+                        <c:if test="${page.currentPage>1}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage-1}&rows=5&keyWord=${keyWord}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&lt;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        </c:if>
+                            <%-- 显示页码 当前页添加active的class属性来改变css样式--%>
+                        <c:forEach begin="1" end="${page.totalPage}" var="i">
+                            <c:choose>
+                                <c:when test="${page.currentPage == i}">
+                                    <li class="page-item active"><a class="page-link"
+                                                                    href="searchGoodsByPageServlet?currentPage=${i}&rows=5&keyWord=${keyWord}">${i}</a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link"
+                                                             href="searchGoodsByPageServlet?currentPage=${i}&rows=5&keyWord=${keyWord}">${i}</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                            <%-- 当前页小于总页数就显示下一页按钮--%>
+                        <c:if test="${page.currentPage<page.totalPage}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.currentPage+1}&rows=5&keyWord=${keyWord}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&gt;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </c:if>
+                            <%-- 页面不是最后一页 跳转到最后一页--%>
+                        <c:if test="${page.currentPage != page.totalPage && page.currentPage<page.totalPage}">
+                            <li class="page-item">
+                                <a class="page-link" href="searchGoodsByPageServlet?currentPage=${page.totalPage}&rows=5&keyWord=${keyWord}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </div>
+            </c:if>
         </div>
         <!-- Recent Sales End -->
     </div>

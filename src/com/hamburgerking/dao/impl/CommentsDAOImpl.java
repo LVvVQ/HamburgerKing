@@ -1,6 +1,8 @@
 package com.hamburgerking.dao.impl;
 
 import com.hamburgerking.bean.Comment;
+import com.hamburgerking.bean.Good;
+import com.hamburgerking.bean.Order;
 import com.hamburgerking.dao.CommentsDAO;
 import com.hamburgerking.util.JDBCUtils;
 
@@ -8,6 +10,8 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 public class CommentsDAOImpl implements CommentsDAO {
     private Connection conn = null;
     private Statement stmt = null;
@@ -188,5 +192,75 @@ public class CommentsDAOImpl implements CommentsDAO {
             JDBCUtils.close(rs, pstmt, conn);
         }
         return comments;
+    }
+
+    /**
+     * 分页查询所有商品
+     * @param start
+     * @param rows
+     * @return
+     */
+    @Override
+    public List<Comment> findByPage(int gid,int start, int rows) {
+
+        try {
+            //两表连接查询获取需要的订单数据，然后根据oid排序, limit之后设置从第start条记录开始, 查rows条
+            String sql = "SELECT cid,users.uid,gid,username, date,content,users.avatar  AS useravatar, " +
+                    "managers.mid,managername,managers.avatar as manageravatar " +
+                    "FROM  comments                         " +
+                    "LEFT JOIN users ON users.uid=comments.uid " +
+                    "left JOIN managers ON managers.mid=comments.mid " +
+                    "WHERE gid=? limit ? , ?";
+            conn = JDBCUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, gid);
+            pstmt.setInt(2, start);
+            pstmt.setInt(3, rows);
+            rs = pstmt.executeQuery();
+            comments.clear();
+            while (rs.next()) {
+                Comment comment=new Comment();
+                comment.setCid(rs.getInt("cid"));
+                comment.setUid(rs.getInt("uid"));
+                comment.setGid(rs.getInt("gid"));
+                comment.setUsername(rs.getString("username"));
+                comment.setDate(rs.getString("date"));
+                comment.setContent(rs.getString("content"));
+                comment.setAvatar(rs.getString("useravatar"));
+                comment.setMid(rs.getInt("mid"));
+                comment.setManagername(rs.getString("managername"));
+                comment.setAvatar2(rs.getString("manageravatar"));
+                comments.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(rs, pstmt, conn);
+        }
+        return comments;
+    }
+
+    /**
+     * 查询一共有多少订单
+     * @return 总订单量
+     */
+    @Override
+    public int findTotalCount(int gid) {
+        try {
+            String sql = "select count(*) as countComments from comments where gid=?";
+            conn = JDBCUtils.getConnection();
+            stmt = conn.createStatement();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setInt(1, gid);
+            rs = pstmt.executeQuery();
+            rs.next();
+            int totalCount = rs.getInt(1);
+            return totalCount;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(rs, stmt, conn);
+        }
+        return 0;
     }
 }

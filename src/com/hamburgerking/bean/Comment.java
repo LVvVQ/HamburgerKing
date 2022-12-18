@@ -10,6 +10,7 @@ public class Comment {
     private String username;
     private String avatar;
     private  String managername;
+    private String avatar2;
 
     public int getUid() {
         return uid;
@@ -81,5 +82,13 @@ public class Comment {
 
     public void setManagername(String managername) {
         this.managername = managername;
+    }
+
+    public String getAvatar2() {
+        return avatar2;
+    }
+
+    public void setAvatar2(String avatar2) {
+        this.avatar2 = avatar2;
     }
 }
