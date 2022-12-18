@@ -304,4 +304,20 @@ public class OrderDaoImpl implements OrderDao {
         }
         return false;
     }
+
+    @Override
+    public boolean delOrderDetailByOid(int oid) {
+        try{
+            conn = JDBCUtils.getConnection();
+            String sql = "delete from orderdetails where oid = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, oid);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.close(pstmt, conn);
+        }
+        return false;
+    }
 }

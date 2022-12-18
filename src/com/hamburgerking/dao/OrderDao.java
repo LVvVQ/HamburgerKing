@@ -36,4 +36,6 @@ public interface OrderDao {
     Order findOrderByOid(int oid);
 
     boolean changeStatus(int oid, int status);
+
+    boolean delOrderDetailByOid(int oid);
 }

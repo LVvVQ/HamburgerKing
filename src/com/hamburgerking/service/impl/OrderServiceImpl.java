@@ -101,7 +101,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delOneOrderById(int oid) {
-        return orderDao.delOneOrderById(oid);
+        boolean flag = orderDao.delOrderDetailByOid(oid);
+        if (flag) {
+            flag = orderDao.delOneOrderById(oid);
+        }
+        return flag;
     }
 
     @Override
