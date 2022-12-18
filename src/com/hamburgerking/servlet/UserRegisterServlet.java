@@ -88,7 +88,7 @@ public class UserRegisterServlet extends HttpServlet {
         req.setAttribute("resultInfo",resultInfo);
 
         //返回到登录界面
-        req.getRequestDispatcher("managerLogin.jsp").forward(req,resp);
+        req.getRequestDispatcher("Login.jsp").forward(req,resp);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class ManagerLoginServlet extends HttpServlet {
             //返回提示信息并结束此方法
             String msg = "验证码错误";
             req.setAttribute("msg",msg);
-            req.getRequestDispatcher("managerLogin.jsp").forward(req,resp);
+            req.getRequestDispatcher("Login.jsp").forward(req,resp);
             return;
         }
 
@@ -53,7 +53,7 @@ public class ManagerLoginServlet extends HttpServlet {
             if(_manager == null){
                 //登录失败 返回错误信息
                 req.setAttribute("msg","管理员账号或密码错误");
-                req.getRequestDispatcher("managerLogin.jsp").forward(req,resp);
+                req.getRequestDispatcher("Login.jsp").forward(req,resp);
             }else {
                 //登录成功
                 //将用户存入session
@@ -71,13 +71,13 @@ public class ManagerLoginServlet extends HttpServlet {
             User _user = service.searchUser(user);
             if(_user == null){
                 req.setAttribute("msg","用户账号或密码错误");
-                req.getRequestDispatcher("managerLogin.jsp").forward(req,resp);
+                req.getRequestDispatcher("Login.jsp").forward(req,resp);
             }else{
                 session.setAttribute("user",_user);
                 req.getRequestDispatcher("findAllGoodsServlet").forward(req,resp);
             }
         }else{
-            req.getRequestDispatcher("managerLogin.jsp").forward(req,resp);
+            req.getRequestDispatcher("Login.jsp").forward(req,resp);
         }
 
 

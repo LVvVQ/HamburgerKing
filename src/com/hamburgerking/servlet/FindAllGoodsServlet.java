@@ -2,6 +2,7 @@ package com.hamburgerking.servlet;
 
 import com.hamburgerking.bean.Good;
 import com.hamburgerking.bean.Page;
+import com.hamburgerking.bean.ResultInfo;
 import com.hamburgerking.service.GoodsService;
 import com.hamburgerking.service.impl.GoodsServiceImpl;
 import jakarta.servlet.ServletException;
@@ -9,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +21,18 @@ public class FindAllGoodsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //设置编码
         req.setCharacterEncoding("utf-8");
+
+        //获取session中的user对象
+        HttpSession session = req.getSession();
+        ResultInfo resultInfo = new ResultInfo();
+        boolean flag = (session.getAttribute("user") == null);
+        resultInfo.setFlag(flag);
+        if(flag){
+            resultInfo.setMsg("请先登录");
+            req.setAttribute("resultInfo",resultInfo);
+            req.getRequestDispatcher("Login.jsp").forward(req,resp);
+            return;
+        }
 
         //获取参数
         String currentPage = req.getParameter("currentPage");//当前页码

@@ -19,7 +19,7 @@ public class ManagerLogOutServlet extends HttpServlet {
         session.removeAttribute("manager");
 
         //返回到登录界面
-        resp.sendRedirect("managerLogin.jsp");
+        resp.sendRedirect("Login.jsp");
     }
 
     @Override
