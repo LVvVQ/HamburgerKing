@@ -42,6 +42,10 @@ public class InsertGoodsServlet extends HttpServlet {
         String stock = request.getParameter("stock");
         String description = request.getParameter("description");
 
+        if(description == null || "".equals(description)){
+            description = "该商品暂无描述";
+        }
+
         //获取文件Part对象
         Part part = request.getPart("image");
         String filename = part.getSubmittedFileName();
