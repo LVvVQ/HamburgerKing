@@ -18,4 +18,6 @@ public interface UserDao {
      * @return
      */
     public boolean addUser(User user);
+
+    public boolean reduceBalance(int uid, double price);
 }

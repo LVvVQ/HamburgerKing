@@ -11,4 +11,6 @@ public interface UserService {
     public User searchUser(User user);
 
     public boolean addUser(User user);
+
+    public boolean shopping(int uid, double price);
 }

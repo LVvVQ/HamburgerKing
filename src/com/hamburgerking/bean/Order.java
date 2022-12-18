@@ -1,14 +1,12 @@
 package com.hamburgerking.bean;
 
-import java.util.Date;
-
 public class Order {
     private int oid;
     private int uid;
     private int status;
     private String username;
     private int nums;
-    private Date date;
+    private String date;
     private double totalPrice;
 
     public int getOid() {
@@ -51,11 +49,11 @@ public class Order {
         this.nums = nums;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
